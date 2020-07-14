@@ -7,8 +7,21 @@ const userSchema = new Schema({
     },
     phone: {
         type: Number,
+        required: true,
     },
-    pubgUsername : String,
+    pubgUsername: String,
+    referralCode: { 
+        type: String, 
+        required: true, 
+    },
+    referralCount: {
+        type: Number,
+        default: 0,
+    },
+    OTP: Number,
+    OTPValidTill: {
+        type: Date,
+    },
 });
 
 module.exports = model('User', userSchema);
