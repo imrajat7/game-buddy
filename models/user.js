@@ -3,7 +3,6 @@ const { Schema, model } = require('mongoose');
 const userSchema = new Schema({
     name: {
         type: String,
-        required: true,
     },
     phone: {
         type: Number,
@@ -13,7 +12,8 @@ const userSchema = new Schema({
     pubgUsername: String,
     referralCode: { 
         type: String, 
-        required: true, 
+        required: true,
+        unique: true,
     },
     referralCount: {
         type: Number,
@@ -23,6 +23,10 @@ const userSchema = new Schema({
     OTPValidTill: {
         type: Date,
     },
+    isRegistered: {
+        type: Boolean,
+        default: false,
+    }
 });
 
 module.exports = model('User', userSchema);
