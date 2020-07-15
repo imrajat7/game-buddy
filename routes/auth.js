@@ -1,32 +1,38 @@
 const router = require('express').Router();
 
-var AWS = require('aws-sdk');
+const User = require('../models/user');
+const sendOTP = require('../config/otpService');
 
-router.get('/login', (req, res) => {
+router.post('/sendOTP', (req, res) => {
 
-    // TODO - Move this code to a controller, and store the OTP for matching (for the next 5 minutes)
+    const { phone } = req.body;
+    const OTP = Math.floor(100000 + Math.random() * 900000);
 
-    var params = {
-        Message: req.query.message,
-        PhoneNumber: `+${req.query.number}`,
-        MessageAttributes: {
-            'AWS.SNS.SMS.SMSType': {
-                DataType: 'String',
-                StringValue: 'Transactional'
-            },
-            'AWS.SNS.SMS.SenderID': {
-                'DataType': 'String',
-                'StringValue': req.query.subject
-            }
-        }
-    };
-
-    var publishTextPromise = new AWS.SNS().publish(params).promise();
-
-    publishTextPromise
-        .then(data => res.send({ MessageID: data.MessageId }))
-        .catch(err => res.send({ Error: err }));
-
+    sendOTP(phone, OTP)
+        .then(data => {
+            User.findOne({ phone })
+                .then(user => {
+                    if (!user) {
+                        // User dosn't exist; create new user
+                        const newUser = new User({
+                            phone,
+                            OTP,
+                            OTPValidTill: Date.now() + (5 * 60 * 1000), //For 5 minutes in the future
+                        });
+                        return newUser.save();
+                    } else {
+                        // User exists, updating user
+                        user = {...user,
+                            OTP,
+                            OTPValidTill: Date.now() + (5 * 60 * 1000),
+                        }
+                        return user.save();
+                    }
+                })
+                .then(user => res.status(200).send(user))
+                .catch(err => console.error(err));
+        })
+        .catch(err => res.send({ error: err }));
 });
 
 module.exports = router;
