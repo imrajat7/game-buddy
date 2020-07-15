@@ -8,6 +8,7 @@ const userSchema = new Schema({
     phone: {
         type: Number,
         required: true,
+        unique: true,
     },
     pubgUsername: String,
     referralCode: { 
