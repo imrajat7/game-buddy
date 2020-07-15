@@ -9,7 +9,7 @@ const userSchema = new Schema({
         required: true,
         unique: true,
     },
-    pubgUsername: String,
+    pubgUsername: String,  
     referralCode: { 
         type: String, 
         required: true,

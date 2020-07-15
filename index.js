@@ -28,6 +28,7 @@ mongoose
     .catch(err => console.log(err));
 
 app.use('/auth', require('./routes/auth'));
+app.use('/room', require('./routes/room'));
 
 const PORT = process.env.PORT || 8000;
 
