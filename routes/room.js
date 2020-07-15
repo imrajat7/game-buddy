@@ -44,12 +44,7 @@ app.get("/room",function(req,res){
 })
 
 app.post("/room",function(req,res){
-    //  res.write(req.body.roomName);
-    //  res.write(req.body.teamMode);
-    //  res.write(req.body.typeOfSquad);
-    //  res.write(req.body.maps);
-    //  res.write(req.body.password);
-    //   res.send()
+   
        const room1=new Room({
         roomName:req.body.roomName,
         teamMode:req.body.teamMode,
@@ -74,29 +69,10 @@ app.get("/room/:roomName",function(req,res){
     })
 })
 
-// app.put("/room/:roomName",function(req,res){
-//     Room.updateOne(
-//         {roomName:req.params.roomName},
-//         {
-//         roomName:req.body.roomName,
-//         teamMode:req.body.teamMode,
-//         typeOfSquad:req.body.typeOfSquad,
-//         maps:req.body.maps,
-//         password:req.body.password},
-//         {overwrite:true},
-//        function(err){
-//            if(err){
-//                res.send(err);
-//            }else{
-//             res.send("updated");
-//            }
-// }
-//        )
-// })
+module.exports=Room;
 
 
-
-app.listen(process.env.PORT || 3000,function(){
-    console.log("server running on port 3000");
+// app.listen(process.env.PORT || 3000,function(){
+//     console.log("server running on port 3000");
     
-})
+// })

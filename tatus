@@ -1,0 +1,48 @@
+[33mcommit cdcb0049663ca6a917756134d87a4ca2cc86aee0[m[33m ([m[1;36mHEAD -> [m[1;32mroom[m[33m, [m[1;31morigin/room[m[33m)[m
+Author: dhruv mittal <dhruvmittal1910@gmail.com>
+Date:   Thu Jul 16 00:20:50 2020 +0530
+
+    room model created
+
+[33mcommit 45a65f5a92593d8f16f54f6c77548c18284b2e72[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m
+Merge: 0d45501 1dfa7d6
+Author: Paras Gupta <parasg1999@gmail.com>
+Date:   Wed Jul 15 01:50:33 2020 +0530
+
+    Merge pull request #2 from parasg1999/dev
+    
+    Amazon SNS integrated
+
+[33mcommit 1dfa7d697bd699c026b0b6c03bea13fc492dbd7a[m
+Merge: fc4bc2d 0d45501
+Author: Paras Gupta <parasg1999@gmail.com>
+Date:   Wed Jul 15 01:32:58 2020 +0530
+
+    Merge branch 'master' of https://github.com/parasg1999/game-buddy into dev
+
+[33mcommit fc4bc2d36123c27042fd4daae8a2f7a7804b15fa[m
+Author: Paras Gupta <parasg1999@gmail.com>
+Date:   Wed Jul 15 01:32:13 2020 +0530
+
+    Amazon SNS integrated
+
+[33mcommit 0d455019a74e557a8244779f081b25a80a703901[m
+Merge: cb00429 c242520
+Author: Paras Gupta <parasg1999@gmail.com>
+Date:   Wed Jul 15 00:38:55 2020 +0530
+
+    Merge pull request #1 from parasg1999/dev
+    
+    Basic boilerplate
+
+[33mcommit c242520aeb995f9a69edb4253c1dacc35088b2c5[m
+Author: Paras Gupta <parasg1999@gmail.com>
+Date:   Wed Jul 15 00:37:12 2020 +0530
+
+    Basic boilerplate
+
+[33mcommit cb004293c14398132957f01d4629479301bbea52[m
+Author: Rajat Sharma <rajat110898@gmail.com>
+Date:   Tue Jul 14 23:54:23 2020 +0530
+
+    Initial commit
