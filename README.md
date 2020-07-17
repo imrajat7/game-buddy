@@ -1,2 +1,3 @@
-# game-buddy
-for multiplayers
+# Important
+
+> Change the file `.env.example` to `.env` and then run the code.
