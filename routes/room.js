@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-    const { name, mode, typeOfSquad, map, password }
+    const { name, mode, typeOfSquad, map, password } = req.body;
 
     const newRoom = new Room({
         name,

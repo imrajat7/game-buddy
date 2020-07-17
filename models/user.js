@@ -26,7 +26,11 @@ const userSchema = new Schema({
     isRegistered: {
         type: Boolean,
         default: false,
-    }
+    },
+    role: {
+        type: String,
+        default: 'user',
+    },
 });
 
 module.exports = model('User', userSchema);
