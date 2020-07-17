@@ -1,32 +1,47 @@
 const router = require('express').Router();
 
-var AWS = require('aws-sdk');
+const User = require('../models/user');
+const sendOTP = require('../config/otpService');
 
-router.get('/login', (req, res) => {
+router.post('/sendOTP', (req, res) => {
 
-    // TODO - Move this code to a controller, and store the OTP for matching (for the next 5 minutes)
+    const { phone } = req.body;
+    const OTP = Math.floor(100000 + Math.random() * 900000);
 
-    var params = {
-        Message: req.query.message,
-        PhoneNumber: `+${req.query.number}`,
-        MessageAttributes: {
-            'AWS.SNS.SMS.SMSType': {
-                DataType: 'String',
-                StringValue: 'Transactional'
-            },
-            'AWS.SNS.SMS.SenderID': {
-                'DataType': 'String',
-                'StringValue': req.query.subject
+    sendOTP(phone, OTP)
+        .then(deliveryDetails => User.findOne({ phone }))
+        .then(user => {
+            if (!user) {
+                // User dosn't exist; create new user
+                const newUser = new User({
+                    phone,
+                    OTP,
+                    referral: phone, // TODO: Fix it
+                    OTPValidTill: Date.now() + (5 * 60 * 1000), //For 5 minutes in the future
+                });
+                return newUser.save();
+            } else {
+                // User exists, updating user
+                return User.updateOne({ phone }, {
+                    OTP,
+                    OTPValidTill: Date.now() + (5 * 60 * 1000), //For 5 minutes in the future
+                })
             }
+        })
+        .then(user => res.status(200).send(user))
+        .catch(err => res.status(400).send({ error: err }));
+});
+
+router.post('/verifyOTP', (req, res) => {
+    const { phone, OTP } = req.body;
+
+    User.findOne({ phone, OTP, OTPValidTill: { $gte: Date.now() } })
+    .then(user => {
+        if(!user) {
+            return res.send('OTP Expired');
         }
-    };
-
-    var publishTextPromise = new AWS.SNS().publish(params).promise();
-
-    publishTextPromise
-        .then(data => res.send({ MessageID: data.MessageId }))
-        .catch(err => res.send({ Error: err }));
-
+        return user.isRegistered ? res.send('Dashboard') : res.send('Get more details');
+    })
 });
 
 module.exports = router;
