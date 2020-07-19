@@ -8,3 +8,13 @@
     color: whitesmoke;
     background-image: linear-gradient(black,rgb(88, 7, 88),black);
   }
+ 
+form {
+  align-content: center;
+}
+.container{
+  padding-top:1% ;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
