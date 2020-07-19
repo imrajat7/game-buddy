@@ -4,49 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PUBG</title>
-    <link rel="stylesheet" href="public/css/style.css">
+    <link rel="stylesheet" href="public/css/verify.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <style>
         body {
+          font-family: 'Poppins', sans-serif;
   /* The image used */
-  background-image: url("public/images/2.png");
+  /* background-image: url("public/images/2.png"); */
 
   /* Set a specific height */
   
 
   /* Create the parallax scrolling effect */
-  background-attachment: fixed;
+  /* background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: cover; */
 }
         
         </style>
 </head>
 <body>
-    <nav class="navbar navbar-light bg-dark">
-        <a class="navbar-brand" href="#" style="color: white;">
-          <img src="" width="30" height="30" class="" alt="" loading="lazy">
+  <section id="one">
+    <div>
+      <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">
+          <img src="" width="30" height="30" class="d-inline-block align-top" alt="">
           GAME BUDDY
         </a>
       </nav>
-
+    </div>
+  </section>
+  
+  
+  
+    <div class="background" style="background-color: rgb(76, 8, 139);text-align: center;">
+  
+      <form class="form-signin">
+        <img class="mb-4" src="public/images/card.png" alt="" width="150" height="200">
       
-      <div class="s14-image">
-        <div class="s14-text">
-            <form class="form-signin">
-                <img class="mb-4" src="/docs/4.5/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-
-                <h1 class="h3 mb-3 font-weight-normal"><strong>LOG IN</strong></h1><br>
-                
-                <input type="" id="inputOtp" class="form-control" placeholder="Enter OTP" required autofocus>
-               <br><br>
+        <h1 style="color: whitesmoke;"  class="h3 mb-3 font-weight-normal"><strong> OTP<br>
+        </strong></h1><br>
+       
+        <input type="mobile" id="inputNumber" class="form-control" placeholder="ENTER OTP" required autofocus>
+       <br><br>
       
-               <a href="details.html" class="btn btn-lg btn-dark btn-block" type="submit">Verify and Continue</a>
-             
-              </form>
-        </div>
-      </div>
-
+       <a href="details.html" class="btn btn-lg btn-primary btn-block" type="submit">Verify </a>
+      
+      </form>
+           
+  
+    </div>
+  
 </body>
 </html>
