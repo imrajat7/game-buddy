@@ -3,7 +3,7 @@ var AWS = require('aws-sdk');
 const sendOtp = (phone, OTP) => {
     let params = {
         Message: `Your GameBuddy OTP is ${OTP}`,
-        PhoneNumber: `+${phone}`,
+        PhoneNumber: phone,
         MessageAttributes: {
             'AWS.SNS.SMS.SMSType': {
                 DataType: 'String',

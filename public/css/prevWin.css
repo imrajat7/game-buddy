@@ -1,0 +1,24 @@
+#four{
+    background-image: linear-gradient(black,#969292,black);
+   /* Create the parallax scrolling effect */
+/* background-attachment: fixed; */
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+overflow: hidden;
+min-height: 100vh;
+height: auto;
+}
+body{
+ 
+}
+
+#four{
+    width: 100%;
+}
+
+.prevWin-container{
+    box-sizing: border-box;
+    display: block;
+    padding: 5%;
+}

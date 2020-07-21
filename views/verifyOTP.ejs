@@ -1,0 +1,28 @@
+<%- include("partials/header") -%>
+
+<div class="background-verify" style="background-color: rgb(76, 8, 139);text-align: center;">
+
+    <form class="form-signin" method="POST" action="/auth/verifyOTP">
+        <img class="mb-4 img-verify" src="/images/card.png" alt="" width="150" height="200">
+
+        <span style="color: whitesmoke;">
+
+            <h1 class="h3 mb-3 font-weight-normal"><strong>Verify OTP<br>(for <%= phone%>)
+                </strong></h1><br>
+        </span>
+
+        <input type="hidden" id="phone" name="phone" value=<%=phone%>>
+
+        <input type="text" id="OTP" name="OTP" class="form-control" placeholder="ENTER OTP" pattern="[1-9][0-9]{5}" required
+            autofocus>
+        <br><br>
+
+        <input class="btn btn-lg btn-dark btn-block" type="submit" value="Verify">
+
+    </form>
+
+
+</div>
+
+
+<%- include("partials/footer") -%>
