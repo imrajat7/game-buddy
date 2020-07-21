@@ -14,8 +14,11 @@ const isUserLoggedIn = (req, res, next) => {
   verifyJWTPromise(token, process.env.SECRET)
     .then(({ id }) => User.findById(id))
     .then(user => {
-      req.user = user;
-      return next();
+      if(user) {
+        req.user = user;
+        return next();
+      }
+      return res.status(401).send('No entry ahead');
     })
     .catch(() => res.status(401).send('No entry ahead'));
 };

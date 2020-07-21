@@ -6,10 +6,18 @@ const sendOTP = require('../config/otpService');
 
 const { isUserLoggedIn } = require('../utils/ensureAuth');
 
+router.get('/sendOTP', (req, res) => {
+    res.render('sendOTP');
+});
+
 router.post('/sendOTP', (req, res) => {
 
-    const { phone } = req.body;
+    let { phone } = req.body;
     const OTP = Math.floor(100000 + Math.random() * 900000); // 6 digits
+
+    phone = `+91${phone}`; // Only indian nums for now
+
+    // TODO : Check if number is invalid
 
     sendOTP(phone, OTP)
         .then(deliveryDetails => User.findOne({ phone }))
@@ -33,7 +41,7 @@ router.post('/sendOTP', (req, res) => {
                 }, { returnOriginal: false })
             }
         })
-        .then(user => res.status(200).send(user))
+        .then(user => res.render('verifyOTP', { phone }))
         .catch(err => res.status(400).send({ error: err }));
 });
 
@@ -49,7 +57,7 @@ router.post('/verifyOTP', (req, res) => {
             }
 
             USER = user;
-
+            pattern = "[0-9]{3}-[0-9]{2}-[0-9]{3}"
             const payload = {
                 id: user._id,
                 phone: user.phone,
@@ -64,14 +72,14 @@ router.post('/verifyOTP', (req, res) => {
             res.cookie('userId', token, {
                 expire: Date.now() + 1000 * 60 * 60 * 24
             });
-            return USER.isRegistered ? res.send('Dashboard') : res.send('Get more details');
+            return USER.isRegistered ? res.redirect('/home') : res.redirect('/user/moreDetails');
         })
         .catch(err => console.log(err));
 });
 
 router.get('/logout', isUserLoggedIn, (req, res) => {
     // res.clearCookie('userId');
-    return res.send('Logged Out');
+    return res.redirect('/');
 });
 
 module.exports = router;

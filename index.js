@@ -2,14 +2,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require("cookie-parser");
+const ejs = require('ejs');
 
 require('dotenv').config();
 
 const app = express();
-
-app.set("view engine", "hbs");
-app.use(cookieParser());
-app.use(express.static("static"));
 
 app.use(
     bodyParser.urlencoded({
@@ -18,6 +15,11 @@ app.use(
 );
 
 app.use(bodyParser.json());
+
+app.use(cookieParser());
+
+app.set('view engine', 'ejs');
+app.use(express.static('public'));
 
 mongoose
     .connect(
@@ -32,13 +34,20 @@ mongoose
     .then(() => console.log("MongoDB successfully connected"))
     .catch(err => console.log(err));
 
-app.get('/', (req, res) => {
-    // Test for rendering pages
-    res.render('home');
-})
 
 app.use('/auth', require('./routes/auth'));
 app.use('/room', require('./routes/room'));
+app.use('/payment', require('./routes/payment'));
+app.use('/user', require('./routes/user'));
+
+app.get('/', (req, res) => {
+    // Test for rendering pages
+    res.redirect('/auth/sendOTP');
+});
+
+app.get('/test', (req, res) => {
+    res.render('getMoreDetails')
+})
 
 const PORT = process.env.PORT || 8000;
 

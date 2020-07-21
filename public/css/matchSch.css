@@ -1,0 +1,16 @@
+#two{
+    
+    background-image: linear-gradient(black,blue,black);
+   /* Create the parallax scrolling effect */
+/* background-attachment: fixed; */
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+min-height: 100vh;
+}
+.card{
+    border-radius: 15px 15px 15px 15px;
+}
+.card-img{
+    border-radius: 100%;
+}
