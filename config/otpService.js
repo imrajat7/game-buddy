@@ -1,6 +1,6 @@
 var AWS = require('aws-sdk');
 
-const sendOtp = (phone, OTP) => {
+const sendOTP = (phone, OTP) => {
     console.log(phone, OTP)
     let params = {
         Message: `Your GameBuddy OTP is ${OTP}`,
@@ -39,4 +39,4 @@ const sendText = (phone, text) => {
     return new AWS.SNS().publish(params).promise();
 }
 
-module.exports = {sendOtp, sendText};
+module.exports = { sendOTP, sendText };
