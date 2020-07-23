@@ -11,7 +11,6 @@ h1{
       font-family: 'Epilogue', sans-serif;
     }
     #two{
-        background-image: linear-gradient(black,blue,black);
        /* Create the parallax scrolling effect */
 /* background-attachment: fixed; */
 background-position: center;

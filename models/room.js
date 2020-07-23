@@ -9,18 +9,20 @@ const roomSchema = new Schema({
         type: String,
         default: "TPP",
     },
+    matchType: String,
     typeOfSquad: {
         type: String,
-        default: "Squad",
+        default: "Solo",
     },
     map: {
         type: String,
         default: "Erangel",
     },
-    password: {
-        type: String,
-        required: true,
-    },
+    datetime: Date,
+    entryFee: Number,
+    killReward: Number,
+    firstReward: String,
+    secondReward: String,
 });
 
 module.exports = model('Room', roomSchema);

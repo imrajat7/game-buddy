@@ -1,0 +1,27 @@
+<%- include("partials/header") -%>
+
+<div class="tournament-page-container responsive-container">
+    <div class="tournament-page-wrapper">
+      <div class="tournament-name-div">
+        <h1 class="tournament-name-text"><%= room.name %></h1>
+      </div>
+      <div class="tournament-details-wrapper responsive-container">
+        <img src="/images/logo.jpeg"  />
+        <div class="details-div">
+          <div><h2>Details</h2></div>
+          <div> 
+            <ul id="details-ul" style="text-align: left;">
+              <li><label><strong>ENTRY FEE :</strong></label> Rs 20</li>
+              <li><label><strong>TOTAL TEAMS :</strong></label>100</li>
+              <li><label><strong>NO. OF TEAMS JOINED :</label></strong></label> /100</li>
+            </ul>
+          </div>
+          <div>
+            <button class="btn btn-primary">Join Tournament</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<%- include("partials/footer") -%>

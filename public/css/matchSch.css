@@ -1,16 +1,84 @@
-#two{
-    
-    background-image: linear-gradient(black,blue,black);
-   /* Create the parallax scrolling effect */
-/* background-attachment: fixed; */
-background-position: center;
-background-repeat: no-repeat;
-background-size: cover;
-min-height: 100vh;
+#two {
+  /* Create the parallax scrolling effect */
+  /* background-attachment: fixed; */
+  /* background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover; */
+  background: #eee;
+  background: linear-gradient(
+    120deg,
+    rgba(50, 150, 100, 0.2),
+    rgba(0, 0, 100, 0)
+  );
+  padding: 2%;
+  min-height: 100vh;
 }
-.card{
-    border-radius: 15px 15px 15px 15px;
+
+::-webkit-scrollbar {
+  display: none;
 }
-.card-img{
-    border-radius: 100%;
+
+.cards-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.matchSch-text-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 2%;
+}
+.matchSch-text-wrapper h1 {
+  color: #666;
+  letter-spacing: 0.5rem;
+  text-shadow: 1px 1px 5px #fff;
+  font-weight: 700;
+  font-size: 3vw;
+}
+
+.card {
+  box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
+  border-radius: 15px !important;
+  width: 30vw;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  transition: all 1s ease;
+  z-index: 999;
+}
+
+.image-div {
+  background-image: url("/images/pubg-cowboy.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 30vh;
+  border-radius: 15px 15px 0px 0px !important;
+}
+
+.details-table tbody tr .details-key {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.details-table tbody tr .details-value {
+  font-weight: 600;
+}
+
+@media (max-width: 760px) {
+  .card {
+    width: 90vw !important;
+    overflow: hidden;
+  }
+  .card:hover {
+    transform: scale(1.02);
+  }
+  .matchSch-text-wrapper h1 {
+    font-size: 10vw;
+    padding: 5%;
+  }
 }

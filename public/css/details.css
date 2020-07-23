@@ -18,7 +18,16 @@ form {
   padding-top: 4%;
   padding-bottom: 4%;
 }
+input.details[type=text] {
+  background-color: rgb(233, 207, 233);
+  color: black;
+}
+input.details[type=number] {
+  background-color: rgb(233, 207, 233);
+  color: black;
+}
 body{
+
   font-family: 'Poppins', sans-serif;
 }
 h1{

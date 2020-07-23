@@ -1,0 +1,70 @@
+<%- include("partials/header") -%>
+
+<section id="two" class="schedule">
+    <div class="matchSch-text-wrapper">
+        <h1>SCHEDULE</h1>
+    </div>
+
+    <div class="container cards-container">
+        <%  rooms.forEach((room, index) => { %>
+        <% if(index % 3 === 0) { %>
+        <div class="card-deck">
+            <%} %>
+
+            <div class="card text-center" id="custom-card">
+                <div class="image-div"></div>
+                <div class="card-body">
+                    <h4 class="card-title"><%= room.name%></h4>
+                    <h6> <%= room.datetime %></h6>
+                    <table class="table details-table">
+                        <tbody>
+                            <tr>
+                                <td class="details-key">Type</td>
+                                <td>-</td>
+                                <td class="details-value"><%= room.typeOfSquad%></td>
+                            </tr>
+                            <tr>
+                                <td class="details-key">Map</td>
+                                <td>-</td>
+                                <td class="details-value"><%= room.map%></td>
+                            </tr>
+                            <tr>
+                                <td class="details-key">Mode</td>
+                                <td>-</td>
+                                <td class="details-value"><%= room.mode %> | <%= room.matchType%></td>
+                            </tr>
+                            <tr>
+                                <td class="details-key">Entry fee</td>
+                                <td>-</td>
+                                <td class="details-value"><%= room.entryFee%></td>
+                            </tr>
+                            <tr>
+                                <td class="details-key">Prize money</td>
+                                <td>-</td>
+                                <td class="details-value"><%= room.firstReward%></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a href="/room/<%=room._id%>"><button class="btn btn-primary" style="width: 40%;">
+                            Join
+                        </button></a>
+
+                    <% if(typeof user !== 'undefined' && user.role === 'admin') { %>
+                    <a href="/room/delete/<%=room._id%>"><button class="btn btn-danger" style="width: 40%;">
+                            Delete Room
+                        </button></a>
+                    <%}%>
+                </div>
+            </div>
+
+            <% if(index % 3 === 2) { %>
+                </div>
+                <div style="margin-top: 1em;"></div>
+                <%} %>
+                <% }); %>
+            </div>
+
+        </div>
+</section>
+
+<%- include("partials/footer") -%>
