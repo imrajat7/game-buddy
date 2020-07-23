@@ -10,18 +10,18 @@
 form {
   align-content: center;
 }
-.container-details{
+.container-profile{
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
- 
+
 }
-input.details[type=text] {
+input.profile[type=text] {
   background-color: rgb(233, 207, 233);
   color: black;
 }
-input.details[type=number] {
+input.profile[type=number] {
   background-color: rgb(233, 207, 233);
   color: black;
 }

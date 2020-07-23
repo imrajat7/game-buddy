@@ -1,0 +1,61 @@
+<%- include("partials/header") -%>
+
+
+<div class="background-admin" style="text-align: center;">
+
+    <form class="form-signin" method="POST" action="/room/create">
+        <img class="mb-4 img-index" src="/images/logo.jpeg" alt="" width="150" height="200">
+
+        <h1 style="color: whitesmoke;" class="h3 mb-3 font-weight-normal"><strong>ADMIN</strong></h1><br>
+
+        <input type="text" name="name" class="form-control admin" placeholder="Match Name">
+        <br>
+        
+        <select name="matchType" class="form-control admin" id="">
+            <option value="Classic">Classic</option>
+            <option value="TDM">TDM</option>
+        </select>
+
+        <br>
+        <select name="map" class="form-control admin" id="map">
+            <option value="Erangel">Erangel</option>
+            <option value="Miramar">Miramar</option>
+            <option value="Vikendi">Vikendi</option>
+            <option value="Sanhok">Sanhok</option>
+            <option value="Livik">Livik</option>
+        </select>
+        <br>
+        <select name="typeOfSquad" class="form-control admin" id="match">
+            <option value="Solo">Solo</option>
+            <option value="Duo">Duo</option>
+            <option value="Squad">Squad</option>
+        </select>
+
+        <br>
+        <input type="datetime-local" name="datetime" class="form-control admin">
+        <br>
+        
+        <input type="number" name="entryFee" class="form-control admin" placeholder="Entry Fee">
+        <br>
+
+        <input type="number" name="killReward" class="form-control admin" placeholder="Reward per kill">
+        <br>
+
+        <input type="text" name="firstReward" class="form-control admin" placeholder="Winner Reward">
+        <br>
+
+        <input type="text" name="secondReward" class="form-control admin" placeholder="Second Reward">
+        <br>
+        
+        <br>
+
+        <input class="btn btn-lg btn-dark btn-block" type="submit" value="Create Game">
+
+    </form>
+
+
+</div>
+
+
+
+<%- include("partials/footer") -%>

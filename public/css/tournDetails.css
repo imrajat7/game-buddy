@@ -9,17 +9,10 @@
   .tournament-page-container {
     min-height: 100vh;
     width: 100%;
-    background: #3e5151; /* fallback for old browsers */
-    background: -webkit-linear-gradient(
-      to right,
-      #decba4,
-      #3e5151
-    ); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(
-      to right,
-      #decba4,
-      #3e5151
-    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #474967; /* fallback for old browsers */
+  
+   /* Chrome 10-25, Safari 5.1-6 */
+     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   }
   .responsive-container {
     display: flex;
@@ -34,7 +27,7 @@
     margin-bottom: 20px;
     flex-direction: column;
     padding: 10px;
-    background-color: #2f3e46;
+    background-color: rgb(212, 205, 205);
     text-align: center;
     border-radius: 15px;
     box-shadow: 0 10px 10px 0 rgba(11, 35, 22, 0.5);
@@ -45,7 +38,7 @@
   }
   .tournament-name-text {
     font-size: 4vw;
-    color: #fff;
+    color: #000;
   }
   .tournament-details-wrapper {
     flex-wrap: wrap;
@@ -63,18 +56,18 @@
     padding: 20px;
     border-radius: 10px;
     transition: all 0.4s ease-in-out;
-    background-color: #666;
+  
   }
   .details-div h2 {
     font-size: 50px;
-    color: white;
+    color: black;
   }
   ul {
     list-style-type: none;
   }
   #details-ul li {
     padding: 20px;
-    color: white;
+    color: black;
   }
   @media (max-width: 760px) {
     .tournament-name-text {
@@ -83,6 +76,9 @@
     .tournament-details-wrapper img {
       width: 40vw;
     }
+  }
+.button{
+    background-color: #474967   !important ;
   }
 
   

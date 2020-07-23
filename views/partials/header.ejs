@@ -1,48 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GAME BUDDY</title>
-    <link rel="stylesheet" href="/css/home.css">
-    <link rel="stylesheet" href="/css/index.css">
-    <link rel="stylesheet" href="/css/verify.css">
-    <link rel="stylesheet" href="/css/leaderboard.css">
-    <link rel="stylesheet" href="/css/matchSch.css">
-    <link rel="stylesheet" href="/css/prevWin.css">
-    <link rel="stylesheet" href="/css/details.css">
-    <link rel="stylesheet" href="/css/tournDetails.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GAME BUDDY</title>
+  <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="/css/index.css">
+  <link rel="stylesheet" href="/css/verify.css">
+  <link rel="stylesheet" href="/css/leaderboard.css">
+  <link rel="stylesheet" href="/css/matchSch.css">
+  <link rel="stylesheet" href="/css/prevMatch.css">
+  <link rel="stylesheet" href="/css/details.css">
+  <link rel="stylesheet" href="/css/tournDetails.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  <link rel="stylesheet" href="/css/profile.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
-   
-</head>     
+
+</head>
+
 <body>
-    <div class="nav-bar">
-        <nav class="container-fluid navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">GAME BUDDY</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse  justify-content-end" id="navbarNav">
-              <ul class="navbar-nav">
-                <li class="nav-item active">
-                  <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/leaderboard">Leaderboard</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/matchSch">Match Schedule</a>
-                </li>
-               <li>
-                   <a href="/prevWin" class="nav-link">Previous WINNERS</a>
-               </li>
-              </ul>
-            </div>
-          </nav>
-    </div>
+  <div class="nav-bar">
+    <nav class="container-fluid navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">GAME BUDDY</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse  justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/leaderboard">Leaderboard</a>
+          </li>
+          <li>
+            <a href="/prevMatch" class="nav-link">Previous Matches</a>
+          </li>
+          <% if(user) { %>
+          <li>
+            <a href="/user/profile" class="nav-link">Profile</a>
+          </li>
+          <li>
+            <a href="/auth/logout" class="nav-link">Logout</a>
+          </li>
+          <%} else { %>
+          <li>
+            <a href="/auth/sendOTP" class="nav-link">Login</a>
+          </li>
+          <%} %>
+        </ul>
+      </div>
+    </nav>
+  </div>

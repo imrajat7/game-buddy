@@ -9,8 +9,8 @@ overflow: hidden;
 min-height: 100vh;
 height: auto;
 }
-body{
- 
+.list-group{
+    background-color: aliceblue;
 }
 
 #four{
@@ -21,4 +21,7 @@ body{
     box-sizing: border-box;
     display: block;
     padding: 5%;
+}
+.contain{
+    background-color: grey;
 }
