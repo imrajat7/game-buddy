@@ -25,6 +25,12 @@ router.post('/create', isAdminLoggedIn, (req, res) => {
         "Squad": 25,
     }
 
+    let teams = teamObj[typeOfSquad];
+
+    if(matchType == 'TDM') {
+        teams = 2;
+    }
+
     const newRoom = new Room({
         name,
         typeOfSquad,
@@ -35,7 +41,7 @@ router.post('/create', isAdminLoggedIn, (req, res) => {
         firstReward,
         secondReward,
         killReward,
-        teams: teamObj[typeOfSquad],
+        teams,
     })
 
     newRoom.save()
