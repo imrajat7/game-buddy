@@ -34,7 +34,7 @@ input.index[type=tel] {
 .background-index{
   min-height: 100vh;
   height: auto;
-  padding-top: 5%;
+  padding-top: 0%;
   position: relative;
   background-image: linear-gradient(black,rgb(88, 7, 88),black);
 }

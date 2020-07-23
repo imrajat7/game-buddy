@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="/css/details.css">
   <link rel="stylesheet" href="/css/tournDetails.css">
   <link rel="stylesheet" href="/css/admin.css">
+  <link rel="stylesheet" href="/css/profile.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
@@ -45,14 +46,17 @@
             <a href="/prevMatch" class="nav-link">Previous Matches</a>
           </li>
           <% if(user) { %>
-            <li>
-              <a href="/auth/logout" class="nav-link">Logout</a>
-            </li>
-            <%} else { %>
-              <li>
-                <a href="/auth/sendOTP" class="nav-link">Login</a>
-              </li>
-              <%} %>
+          <li>
+            <a href="/user/profile" class="nav-link">Profile</a>
+          </li>
+          <li>
+            <a href="/auth/logout" class="nav-link">Logout</a>
+          </li>
+          <%} else { %>
+          <li>
+            <a href="/auth/sendOTP" class="nav-link">Login</a>
+          </li>
+          <%} %>
         </ul>
       </div>
     </nav>

@@ -1,27 +1,102 @@
 <%- include("partials/header") -%>
 
 <div class="tournament-page-container responsive-container">
-    <div class="tournament-page-wrapper">
-      <div class="tournament-name-div">
-        <h1 class="tournament-name-text"><%= room.name %></h1>
-      </div>
-      <div class="tournament-details-wrapper responsive-container">
-        <img src="/images/logo.jpeg"  />
-        <div class="details-div">
-          <div><h2>Details</h2></div>
-          <div> 
-            <ul id="details-ul" style="text-align: left;">
-              <li><label><strong>ENTRY FEE :</strong></label> Rs 20</li>
-              <li><label><strong>TOTAL TEAMS :</strong></label>100</li>
-              <li><label><strong>NO. OF TEAMS JOINED :</label></strong></label> /100</li>
-            </ul>
-          </div>
-          <div>
-            <button class="btn btn-primary">Join Tournament</button>
-          </div>
+  <div class="tournament-page-wrapper">
+    <!-- <div class="tournament-name-div">
+        <h1 class="tournament-name-text">T NAME</h1>
+      </div> -->
+    <div class="tournament-details-wrapper responsive-container">
+      <img src="/images/gb.png" width="100px" height="250px" />
+      <div class="details-div">
+        <div style="padding: 10% 5%;">
+          <h2><%= room.name %></h2>
+          <h4><%= room.mode %> | <%= room.matchType %> | <%= room.typeOfSquad %> | <%= room.map %> </h4>
+        </div>
+        <div>
+
+          <table class="table details-table">
+            <tbody style="text-align: left;">
+              <tr>
+                <td class="details-key">ENTRY FEE</td>
+                <td>-</td>
+                <td class="details-value">₹ <%= room.entryFee%></td>
+              <tr>
+                <td class="details-key">Winner gets</td>
+                <td>-</td>
+                <td class="details-value">₹ <%= room.firstReward%></td>
+              </tr>
+              <% if(room.secondReward) { %>
+              <tr>
+                <td class="details-key">Runner up gets</td>
+                <td>-</td>
+                <td class="details-value">₹ <%= room.secondReward%></td>
+              </tr>
+              </tr>
+              <% } if(room.killReward) { %>
+              <tr>
+                <td class="details-key">Reward per kill</td>
+                <td>-</td>
+                <td class="details-value">₹ <%= room.killReward%></td>
+              </tr>
+              <% } %>
+              <tr>
+                <td class="details-key">TOTAL TEAMS</td>
+                <td>-</td>
+                <td class="details-value"><%=room.teams%></td>
+              </tr>
+              <tr>
+                <td class="details-key">NO. OF TEAMS JOINED</td>
+                <td>-</td>
+                <td class="details-value"><%=room.teamsJoined%>/<%=room.teams%></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <br><br>
+          <input type="hidden" id="order-id">
+          <button class="btn btn-dark button" id="joinTourn">Join Tournament</button>
+          <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+          <script>
+            document.getElementById('joinTourn').onclick = function (e) {
+              var url = '/payment/join/<%=room._id%>';
+
+              var xmlHttp = new XMLHttpRequest();
+              xmlHttp.onreadystatechange = function (res) {
+                console.log(res);
+                if (xmlHttp.readyState === 4) {
+                  res = JSON.parse(xmlHttp.responseText);
+                  document.getElementById('order-id').value = res.data.id;
+                  var options = {
+                    "key": "rzp_live_mWmd2F9LTG9gMA",  //Enter your razorpay key
+                    "currency": "INR",
+                    "name": "Razor Tutorial",
+                    "description": "Razor Test Transaction",
+                    "image": "https://previews.123rf.com/images/subhanbaghirov/subhanbaghirov1605/subhanbaghirov160500087/56875269-vector-light-bulb-icon-with-concept-of-idea-brainstorming-idea-illustration-.jpg",
+                    "order_id": document.getElementById('order-id').value,
+                    "handler": function (response) {
+                      console.log(response);
+                      // document.getElementById('order-pay-id').value = response.razorpay_payment_id;
+                      // document.getElementById('order-id').value = response.razorpay_order_id;
+                      // document.getElementById('order-sig').value = response.razorpay_signature;
+                    },
+                    "theme": {
+                      "color": "#227254"
+                    }
+                  };
+                  var rzp1 = new Razorpay(options);
+                  rzp1.open();
+                }
+              }
+              xmlHttp.open("POST", url, true); // false for synchronous request
+              xmlHttp.setRequestHeader("Content-type", "application/json");
+              xmlHttp.send();
+            }
+          </script>
         </div>
       </div>
     </div>
   </div>
+</div>
 
 <%- include("partials/footer") -%>

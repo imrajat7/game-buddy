@@ -3,11 +3,11 @@
     background-image: linear-gradient(black,rgb(228, 101, 101),black);
     min-height: 100vh;
     height: auto;
-}
+} 
 select.admin{
     background-color: rgb(226, 202, 202);
     color: black;
-  }
+  }   
  
   .form-signin .admin {
     position: relative;

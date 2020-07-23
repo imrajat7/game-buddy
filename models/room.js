@@ -23,6 +23,14 @@ const roomSchema = new Schema({
     killReward: Number,
     firstReward: String,
     secondReward: String,
+    teams: {
+        type: Number,
+        default: 100,
+    },
+    teamsJoined: {
+        type: Number,
+        default: 0,
+    }
 });
 
 module.exports = model('Room', roomSchema);

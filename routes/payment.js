@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
     res.render('checkout');
 });
 
-router.get('/join/:id', isUserLoggedIn, (req, res) => {
+router.post('/join/:id', isUserLoggedIn, (req, res) => {
     Room.findOne({ _id: req.params.id })
         .then(room => {
             if (!room) {
@@ -28,7 +28,7 @@ router.get('/join/:id', isUserLoggedIn, (req, res) => {
                 })
                     .then((data) => {
                         console.log(data);
-                        res.json({ "sub": data, "status": "success" })
+                        res.json({ data, "status": "success" })
                     })
                     .catch((error) => res.send({ "sub": error, "status": "failed" }));
             }

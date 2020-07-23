@@ -1,0 +1,62 @@
+<%- include("partials/header") -%>
+
+<div class="container-details">
+    <div style="text-align: center;">
+      <img class="d-block mx-auto " src="/images/gb.png"  alt="logo" width="250" height="250">
+      <h2 >User Profile</h2>
+       </div>
+   
+   
+     
+      <div class="col-md-8 order-md-1">
+   
+         <form class="needs-validation" method="POST" action="/user/update">
+       
+            <div class="col-md-6 mb-3">
+              <label for="Name">Name</label>
+              <input type="text" class="form-control details" id="Name" placeholder="Name" name="name" value="<%=user.name%>" required>
+              
+            </div>
+            
+        
+  
+          <div class="col-md-6 mb-3">
+            <label for="username">Pubg Username</label>
+            <div class="input-group">
+              
+              <input type="text" value="<%=user.pubgUsername%>" name="pubgUsername" class="form-control details" id="username" placeholder="Username" required>
+              <div class="invalid-feedback" style="width: 100%;">
+                Your username is required.
+              </div>
+            </div>
+          </div>
+  
+       
+          <div class="col-md-6 mb-3">
+            <label for="">Referral Code </label>
+            <input type="text" class="form-control details" id="" placeholder="Referral Code" value="<%=user.referralCode%>" readonly>
+            <div class="invalid-feedback">
+              Enter Referral code (if any) 
+            </div>
+          </div>
+   
+         
+          <hr class="col-md-6 mb-3">
+          <input type="submit" class="btn btn-dark btn-lg " style="padding: 1% 15%;" value="Update">
+           </form>
+
+    
+       
+      </div>
+    
+    <br><br><br>
+
+
+
+</div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      <script>window.jQuery || document.write('<script src="/docs/4.5/assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="/docs/4.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd" crossorigin="anonymous"></script>
+        <script src="form-validation.js"></script>
+       
+
+<%- include("partials/footer") -%>

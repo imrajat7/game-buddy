@@ -1,7 +1,7 @@
 
 
 
-  html,
+  html, 
   body {
     
     font-family: 'Poppins', sans-serif;
@@ -33,7 +33,7 @@
   .background-verify{
     min-height: 100vh;
     height: auto;
-    padding-top: 5%;
+    
     position: relative;
     background-image: linear-gradient(black,rgb(88, 7, 88),black);
   }

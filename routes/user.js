@@ -28,4 +28,19 @@ router.post('/moreDetails', isUserLoggedIn, (req, res) => {
         .catch(err => res.status(400).send({ err }))
 });
 
+router.get('/profile', isUserLoggedIn, (req, res) => {
+    User.findById(req.user._id)
+    .then(user => res.render('profile', {user}))
+    .catch(err => res.status(400).send({ err }))
+});
+
+router.post('/update', isUserLoggedIn, (req, res) => {
+    const {name, pubgUsername} = req.body;
+    User.findByIdAndUpdate(req.user._id, {
+        name, pubgUsername,
+    })
+    .then(user => res.redirect('/user/profile'))
+    .catch(err => res.status(400).send({ err }));
+})
+
 module.exports = router;
