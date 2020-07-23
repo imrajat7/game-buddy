@@ -15,7 +15,7 @@
                 <div class="image-div"></div>
                 <div class="card-body">
                     <h4 class="card-title"><%= room.name%></h4>
-                    <h6> <%= room.datetime %></h6>
+                    <h6> <%= room.datetime.toString().split('GMT')[0] %></h6>
                     <table class="table details-table">
                         <tbody>
                             <tr>
