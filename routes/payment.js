@@ -4,6 +4,7 @@ const { isUserLoggedIn } = require('../utils/ensureAuth');
 const Room = require('../models/room');
 
 const shortid = require('shortid');
+const room = require('../models/room');
 
 const instance = new Razorpay({
     key_id: process.env.RAZOR_KEY_ID,
@@ -46,15 +47,20 @@ router.post('/order', (req, res) => {
 });
 
 router.post("/verify", (req, res) => {
+    const roomId = req.headers.referer.split('/').pop();
     body = req.body.razorpay_order_id + "|" + req.body.razorpay_payment_id;
     var crypto = require("crypto");
     var expectedSignature = crypto.createHmac('sha256', process.env.RAZOR_KEY_SECRET)
         .update(body.toString())
         .digest('hex');
     if (expectedSignature === req.body.razorpay_signature) {
-        return res.redirect('/')
+
+        Room.findByIdAndUpdate(roomId, { $push: { players: req.user._id }, $inc: { teamsJoined: 1 } }, { new: true })
+            .then(user => res.status(200).send('Payment successful!'))
+            .catch(err => res.status(400).send({ err: 'ERR' }));
+
     } else {
-        res.status(400).send({err: 'ERR'})
+        res.status(400).send({ err: 'ERR' })
     }
 });
 

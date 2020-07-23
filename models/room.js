@@ -30,7 +30,13 @@ const roomSchema = new Schema({
     teamsJoined: {
         type: Number,
         default: 0,
-    }
+    },
+    players: [
+        { 
+            type: Schema.Types.ObjectId, 
+            ref: 'User' 
+        }
+    ]
 });
 
 module.exports = model('Room', roomSchema);

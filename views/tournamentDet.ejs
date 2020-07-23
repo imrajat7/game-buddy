@@ -47,13 +47,13 @@
               <tr>
                 <td class="details-key">NO. OF TEAMS JOINED</td>
                 <td>-</td>
-                <td class="details-value"><%=room.teamsJoined%>/<%=room.teams%></td>
+                <td class="details-value"><%=room.teamsJoined%> / <%=room.teams%></td>
               </tr>
             </tbody>
           </table>
         </div>
         <div>
-          <br><br>
+          <% if(!room.players.includes(user._id)) { %>
           <input type="hidden" id="order-id">
           <button class="btn btn-dark button" id="joinTourn">Join Tournament</button>
           <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
@@ -68,11 +68,10 @@
                   res = JSON.parse(xmlHttp.responseText);
                   document.getElementById('order-id').value = res.data.id;
                   var options = {
-                    "key": "rzp_live_mWmd2F9LTG9gMA",  //Enter your razorpay key
+                    "key": "rzp_test_m0jJA15GTqiHRo",  //Enter your razorpay key
                     "currency": "INR",
-                    "name": "Razor Tutorial",
-                    "description": "Razor Test Transaction",
-                    "image": "https://previews.123rf.com/images/subhanbaghirov/subhanbaghirov1605/subhanbaghirov160500087/56875269-vector-light-bulb-icon-with-concept-of-idea-brainstorming-idea-illustration-.jpg",
+                    "name": "My Game Buddy",
+                    "description": "<%=room.name%>",
                     "order_id": document.getElementById('order-id').value,
                     "handler": function (response) {
                       var url = '/payment/verify';
@@ -85,14 +84,12 @@
                       xmlHttp.onreadystatechange = function (res) {
                         if (xmlHttp.readyState === 4) {
                           alert(xmlHttp.responseText);
+                          window.location.href = "/";
                         }
                       }
                       xmlHttp.open("POST", url, true); // false for synchronous request
                       xmlHttp.setRequestHeader("Content-type", "application/json");
                       xmlHttp.send(JSON.stringify(params));
-                    },
-                    "theme": {
-                      "color": "#227254"
                     }
                   };
                   var rzp1 = new Razorpay(options);
@@ -104,6 +101,9 @@
               xmlHttp.send();
             }
           </script>
+          <% } else {%>
+          <button class="btn btn-dark button" disabled>Already Joined!</button>
+          <% } %>
         </div>
       </div>
     </div>

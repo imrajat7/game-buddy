@@ -50,8 +50,8 @@
                         </button></a>
 
                     <% if(typeof user !== 'undefined' && user.role === 'admin') { %>
-                    <a href="/room/delete/<%=room._id%>"><button class="btn btn-danger" style="width: 40%;">
-                            Delete Room
+                    <a href="/room/sendMessage/<%=room._id%>"><button class="btn btn-danger" style="width: 40%;">
+                            Send Message
                         </button></a>
                     <%}%>
                 </div>

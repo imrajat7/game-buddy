@@ -3,20 +3,20 @@ const jwt = require('jsonwebtoken');
 const shortid = require('shortid');
 
 const User = require('../models/user');
-const sendOTP = require('../config/otpService');
+const { sendOTP } = require('../config/otpService');
 
 const { isUserLoggedIn } = require('../utils/ensureAuth');
 
 router.get('/sendOTP', (req, res) => {
-    if(req.user) {
+    if (req.user) {
         return res.redirect('/');
     }
-    res.render('sendOTP', {user: req.user});
+    res.render('sendOTP', { user: req.user });
 });
 
 router.post('/sendOTP', (req, res) => {
 
-    if(req.user) {
+    if (req.user) {
         return res.redirect('/');
     }
 

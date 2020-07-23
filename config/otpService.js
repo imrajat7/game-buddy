@@ -20,4 +20,23 @@ const sendOtp = (phone, OTP) => {
     return new AWS.SNS().publish(params).promise();
 }
 
-module.exports = sendOtp;
+const sendText = (phone, text) => {
+    let params = {
+        Message: text,
+        PhoneNumber: phone,
+        MessageAttributes: {
+            'AWS.SNS.SMS.SMSType': {
+                DataType: 'String',
+                StringValue: 'Transactional'
+            },
+            'AWS.SNS.SMS.SenderID': {
+                'DataType': 'String',
+                'StringValue': 'GAMEBUDDY'
+            }
+        }
+    };
+
+    return new AWS.SNS().publish(params).promise();
+}
+
+module.exports = {sendOtp, sendText};
