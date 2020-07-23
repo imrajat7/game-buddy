@@ -75,10 +75,21 @@
                     "image": "https://previews.123rf.com/images/subhanbaghirov/subhanbaghirov1605/subhanbaghirov160500087/56875269-vector-light-bulb-icon-with-concept-of-idea-brainstorming-idea-illustration-.jpg",
                     "order_id": document.getElementById('order-id').value,
                     "handler": function (response) {
-                      console.log(response);
-                      // document.getElementById('order-pay-id').value = response.razorpay_payment_id;
-                      // document.getElementById('order-id').value = response.razorpay_order_id;
-                      // document.getElementById('order-sig').value = response.razorpay_signature;
+                      var url = '/payment/verify';
+                      var params = {
+                        razorpay_order_id: response.razorpay_order_id,
+                        razorpay_payment_id: response.razorpay_payment_id,
+                        razorpay_signature: response.razorpay_signature,
+                      };
+                      var xmlHttp = new XMLHttpRequest();
+                      xmlHttp.onreadystatechange = function (res) {
+                        if (xmlHttp.readyState === 4) {
+                          alert(xmlHttp.responseText);
+                        }
+                      }
+                      xmlHttp.open("POST", url, true); // false for synchronous request
+                      xmlHttp.setRequestHeader("Content-type", "application/json");
+                      xmlHttp.send(JSON.stringify(params));
                     },
                     "theme": {
                       "color": "#227254"

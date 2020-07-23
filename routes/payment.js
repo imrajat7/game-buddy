@@ -51,12 +51,11 @@ router.post("/verify", (req, res) => {
     var expectedSignature = crypto.createHmac('sha256', process.env.RAZOR_KEY_SECRET)
         .update(body.toString())
         .digest('hex');
-    console.log("-->sig" + req.body.razorpay_signature);
-    console.log("sig" + expectedSignature);
-    var response = { "status": "failure" }
-    if (expectedSignature === req.body.razorpay_signature)
-        response = { "status": "success" }
-    res.send(response);
+    if (expectedSignature === req.body.razorpay_signature) {
+        return res.redirect('/')
+    } else {
+        res.status(400).send({err: 'ERR'})
+    }
 });
 
 module.exports = router;
