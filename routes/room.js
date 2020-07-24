@@ -74,11 +74,15 @@ router.post('/sendMessage/:id', isAdminLoggedIn, (req, res) => {
             }
         })
         .then(users => {
-            users.forEach(user => {
-                sendText(`+${user.phone}`, message)
-                    .then(data => console.log(data));
-            });
-            return res.redirect('/', { user: req.user })
+            if (users) {
+                users.forEach(user => {
+                    console.log(user);
+                    sendText(`+${user.phone}`, message)
+                        .then(data => console.log(data));
+                });
+            } else {
+                return res.redirect('/', { user: req.user })
+            }
         })
         .catch(err => res.status(400).send({ err }))
     // TODO: FIX IT
@@ -95,9 +99,9 @@ router.get('/viewPlayers/:id', isAdminLoggedIn, (req, res) => {
         })
         .then(users => {
             if (users) {
-                return res.render('players', { users });
+                return res.render('players', { users, user: req.user });
             } else {
-                return res.redirect('/', { user: req.user })
+                return res.redirect('/')
             }
         })
         .catch(err => res.status(400).send({ err }))

@@ -46,10 +46,6 @@ app.use('/payment', require('./routes/payment'));
 app.use('/user', require('./routes/user'));
 app.use('/', require('./routes/index'));
 
-app.get('/test', (req, res) => {
-    res.render('players', {user: req.user});
-})
-
 app.get('*', (req, res) => {
     res.redirect('/');
 })
