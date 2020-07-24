@@ -94,8 +94,8 @@ router.get('/viewPlayers/:id', isAdminLoggedIn, (req, res) => {
             }
         })
         .then(users => {
-            if(users) {
-                return res.send({ users });
+            if (users) {
+                return res.render('players', { users });
             } else {
                 return res.redirect('/', { user: req.user })
             }
