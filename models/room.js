@@ -20,6 +20,10 @@ const roomSchema = new Schema({
     },
     datetime: Date,
     entryFee: Number,
+    minKills: {
+        type: Number,
+        default: 0,
+    },
     killReward: Number,
     firstReward: String,
     secondReward: String,
@@ -32,9 +36,9 @@ const roomSchema = new Schema({
         default: 0,
     },
     players: [
-        { 
-            type: Schema.Types.ObjectId, 
-            ref: 'User' 
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'User'
         }
     ]
 });
