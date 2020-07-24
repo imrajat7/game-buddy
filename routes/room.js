@@ -83,7 +83,7 @@ router.post('/sendMessage/:id', isAdminLoggedIn, (req, res) => {
 })
 
 
-router.get('/:id', isUserLoggedIn, (req, res) => {
+router.get('/:id', isUserLoggedIn, isUserVerified, (req, res) => {
     const { id } = req.params;
     Room.findOne({ _id: id })
         .then(room => res.render('tournamentDet', { room, user: req.user }))

@@ -20,6 +20,7 @@ router.post('/moreDetails', isUserLoggedIn, (req, res) => {
         917006903831,
         917018633907,
         916005637691,
+        919521747405,
         919821457141].includes(req.user.phone) ? 'admin' : 'user';
 
     User.findOneAndUpdate({ _id: req.user._id, isRegistered: false },

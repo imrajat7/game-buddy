@@ -21,17 +21,24 @@ router.post('/join/:id', isUserLoggedIn, (req, res) => {
             if (!room) {
                 res.status(400).send({ err })
             } else {
-                instance.orders.create({
-                    amount: room.entryFee * 100,
-                    currency: "INR",
-                    receipt: shortid.generate(),
-                    payment_capture: '1'
-                })
-                    .then((data) => {
-                        console.log(data);
-                        res.json({ data, "status": "success" })
+                if (room.teamsJoined == room.teams) {
+                    return res.status(400).send('Room Full');
+                }
+
+                else {
+                    
+                    instance.orders.create({
+                        amount: room.entryFee * 100,
+                        currency: "INR",
+                        receipt: shortid.generate(),
+                        payment_capture: '1'
                     })
-                    .catch((error) => res.send({ "sub": error, "status": "failed" }));
+                        .then((data) => {
+                            console.log(data);
+                            res.json({ data, "status": "success" })
+                        })
+                        .catch((error) => res.send({ "sub": error, "status": "failed" }));
+                }
             }
         })
         .catch(err => res.status(400).send({ err }));

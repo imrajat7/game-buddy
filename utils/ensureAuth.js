@@ -23,6 +23,14 @@ const isUserLoggedIn = (req, res, next) => {
     .catch(() => res.redirect('/auth/sendOTP'));
 };
 
+isUserVerified = (req, res, next) => {
+  if(req.user.isRegistered) {
+    next();
+  } else {
+    res.redirect('/user/moreDetails');
+  }
+}
+
 const isAdminLoggedIn = (req, res, next) => {
   let token = req.cookies.userId;
 
