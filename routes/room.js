@@ -27,7 +27,7 @@ router.post('/create', isAdminLoggedIn, (req, res) => {
 
     let teams = teamObj[typeOfSquad];
 
-    if(matchType == 'TDM') {
+    if (matchType == 'TDM') {
         teams = 2;
     }
 
@@ -76,9 +76,29 @@ router.post('/sendMessage/:id', isAdminLoggedIn, (req, res) => {
         .then(users => {
             users.forEach(user => {
                 sendText(`+${user.phone}`, message)
-                .then(data => console.log(data));
+                    .then(data => console.log(data));
             });
             return res.redirect('/', { user: req.user })
+        })
+        .catch(err => res.status(400).send({ err }))
+    // TODO: FIX IT
+});
+
+router.get('/viewPlayers/:id', isAdminLoggedIn, (req, res) => {
+    const { id } = req.params;
+    Room.findOne({ _id: id })
+        .then(room => {
+            if (!room) { }
+            else {
+                return User.find({ _id: { $in: room.players } })
+            }
+        })
+        .then(users => {
+            if(users) {
+                return res.send({ users });
+            } else {
+                return res.redirect('/', { user: req.user })
+            }
         })
         .catch(err => res.status(400).send({ err }))
     // TODO: FIX IT
