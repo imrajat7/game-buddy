@@ -5,10 +5,6 @@ const roomSchema = new Schema({
         type: String,
         required: true,
     },
-    mode: {
-        type: String,
-        default: "TPP",
-    },
     matchType: String,
     typeOfSquad: {
         type: String,
