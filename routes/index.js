@@ -11,6 +11,10 @@ router.get('/', (req, res) => {
 
 router.get('/terms-conditions', function (req, res) {
     res.render('terms-conditions', { user: req.user });
-})
+});
+
+router.get('/rules', function (req, res) {
+    res.render('rules', { user: req.user });
+});
 
 module.exports = router;
