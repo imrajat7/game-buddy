@@ -1,9 +1,9 @@
 <%- include("partials/header") -%>
 
 <div class="background-index" style="background-color: rgb(76, 8, 139);text-align: center;">
-
+ 
     <form class="form-signin" method="POST" action="/auth/sendOTP">
-        <img class="mb-4 img-index" src="/images/card.png" alt="" width="150" height="200">
+        <img class="mb-4 img-index" src="/images/gb.png" alt="" width="200" height="200">
 
         <h1 style="color: whitesmoke;" class="h3 mb-3 font-weight-normal"><strong>Want To Play <br>
                 LOG IN</strong></h1><br>
@@ -11,7 +11,13 @@
         <input type="tel" id="phone" name="phone" class="form-control" placeholder="Mobile Number"
             pattern="[1-9][0-9]{9}" oninvalid="this.setCustomValidity('Phone number without country code')"
             oninput="this.setCustomValidity('')" required autofocus>
-        <br><br>
+            <br>
+            <input type="checkbox"  class="" required><span style="color: whitesmoke;">
+                
+                I agree to the <a href="/terms-conditions">Terms and Conditions</a>
+            </span>
+            <br>
+            <br>
 
         <input type="submit" class="btn btn-lg btn-dark btn-block" value="Generate OTP">
 

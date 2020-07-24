@@ -9,8 +9,8 @@ router.get('/', (req, res) => {
         .catch(err => res.status(400).send({ err }))
 });
 
-router.get('/privacyPolicy', (req, res) => {
-    res.render('privacyPolicy');
-});
+router.get('/terms-conditions', function (req, res) {
+    res.render('terms-conditions', { user: req.user });
+})
 
 module.exports = router;
