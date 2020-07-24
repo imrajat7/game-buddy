@@ -28,7 +28,7 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
 mongoose
-    .connect(
+.connect(
         process.env.MONGO_URI,
         {
             useNewUrlParser: true,
@@ -47,6 +47,8 @@ app.use('/room', require('./routes/room'));
 app.use('/payment', require('./routes/payment'));
 app.use('/user', require('./routes/user'));
 app.use('/', require('./routes/index'));
+
+
 
 const PORT = process.env.PORT || 8000;
 

@@ -8,5 +8,7 @@ router.get('/', (req, res) => {
         .then(rooms => res.render('matchSchedule', { rooms, user: req.user }))
         .catch(err => res.status(400).send({ err }))
 });
-
+router.get('/terms-conditions',function(req,res){
+    res.render("terms-conditions",{user:req.user});
+})
 module.exports = router;
