@@ -6,7 +6,9 @@
     </div>
 
     <div class="container cards-container">
-        <%  rooms.forEach((room, index) => { %>
+        <% if(rooms.length == 0){%>
+            No matches scheduled for now. Stay tuned and follow us on Instagram at @my_game_buddy for instant updates.
+        <% } rooms.forEach((room, index) => { %>
         <% if(index % 3 === 0) { %>
         <div class="card-deck">
             <%} %>
@@ -16,34 +18,37 @@
                 <div class="card-body">
                     <h4 class="card-title"><%= room.name%></h4>
                     <h6> <%= room.datetime.toString().split('GMT')[0] %></h6>
+                    <% if(room.note) { %>
+                    <h6> <%= room.note %></h6>
+                    <%}%>
                     <table class="table details-table">
                         <tbody>
                             <tr>
                                 <td class="details-key">Type</td>
                                 <td>-</td>
                                 <td class="details-value"><%= room.typeOfSquad%></td>
-                            </tr>
-                            <tr>
-                                <td class="details-key">Map</td>
-                                <td>-</td>
-                                <td class="details-value"><%= room.map%> | <%= room.matchType%></td>
-                            </tr>
-                            <tr>
-                                <td class="details-key">Entry fee</td>
-                                <td>-</td>
-                                <td class="details-value">₹ <%= room.entryFee%></td>
-                            </tr>
-                            <tr>
-                                <td class="details-key">Per kill reward</td>
-                                <td>-</td>
-                                <td class="details-value">₹ <%= room.killReward%></td>
-                            </tr>
-                            <tr>
-                                <td class="details-key">Prize money</td>
-                                <td>-</td>
-                                <td class="details-value">₹ <%= room.firstReward%></td>
-                            </tr>
-                        </tbody>
+                    </tr>
+                    <tr>
+                        <td class="details-key">Map</td>
+                        <td>-</td>
+                        <td class="details-value"><%= room.map%> | <%= room.matchType%></td>
+                    </tr>
+                    <tr>
+                        <td class="details-key">Entry fee</td>
+                        <td>-</td>
+                        <td class="details-value">₹ <%= room.entryFee%></td>
+                    </tr>
+                    <tr>
+                        <td class="details-key">Per kill reward</td>
+                        <td>-</td>
+                        <td class="details-value">₹ <%= room.killReward%></td>
+                    </tr>
+                    <tr>
+                        <td class="details-key">Prize money</td>
+                        <td>-</td>
+                        <td class="details-value">₹ <%= room.firstReward%></td>
+                    </tr>
+                    </tbody>
                     </table>
                     <a href="/room/<%=room._id%>"><button class="btn btn-primary" style="width: 40%;">
                             Join

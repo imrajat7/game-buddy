@@ -36,7 +36,8 @@ const roomSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'User'
         }
-    ]
+    ],
+    note: {type : String}
 });
 
 module.exports = model('Room', roomSchema);
