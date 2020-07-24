@@ -36,7 +36,7 @@
                     <tr>
                         <td class="details-key">Entry fee</td>
                         <td>-</td>
-                        <td class="details-value">₹ <%= room.entryFee%></td>
+                        <td class="details-value">₹ <%= room.entryFee%> <% if (room.typeOfSquad != 'Solo') { %> per team <% } %></td>
                     </tr>
                     <tr>
                         <td class="details-key">Per kill reward</td>

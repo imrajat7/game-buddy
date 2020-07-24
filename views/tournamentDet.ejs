@@ -22,15 +22,15 @@
               <tr>
                 <td class="details-key">ENTRY FEE</td>
                 <td>-</td>
-                <td class="details-value">₹ <%= room.entryFee%></td>
+                <td class="details-value">₹ <%= room.entryFee%> <% if (room.typeOfSquad != 'Solo') { %> per team <% } %></td>
               <tr>
-                <td class="details-key">Winner gets</td>
+                <td class="details-key">Winner <% if (room.typeOfSquad != 'Solo') { %> team <% } %> gets</td>
                 <td>-</td>
-                <td class="details-value">₹ <%= room.firstReward%></td>
+                <td class="details-value">₹ <%= room.firstReward%> </td>
               </tr>
               <% if(room.secondReward) { %>
               <tr>
-                <td class="details-key">Runner up gets</td>
+                <td class="details-key">Runner-Up <% if (room.typeOfSquad != 'Solo') { %> team <% } %> gets</td>
                 <td>-</td>
                 <td class="details-value">₹ <%= room.secondReward%></td>
               </tr>

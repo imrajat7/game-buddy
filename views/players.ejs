@@ -8,14 +8,15 @@
             <th>Sr. No.</th>
             <th>Name</th>
             <th>PUBG Username</th>
-<th>Phone</th>
+            <th>Phone</th>
         </tr>
         <% users.forEach((user, i) => { %>
         <tr>
             <td><%=i%></td>
             <td><%=user.name%></td>
             <td><%=user.pubgUsername%></td>
-<td><%=user.phone%></td></tr>
+            <td><%=user.phone%></td>
+        </tr>
         <% }); %>
     </table>
 
