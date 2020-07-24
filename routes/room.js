@@ -74,9 +74,10 @@ router.post('/sendMessage/:id', isAdminLoggedIn, (req, res) => {
         })
         .then(users => {
             users.forEach(user => {
-                sendText(`+${user.phone}`, message);
+                sendText(`+${user.phone}`, message)
+                .then(data => console.log(data));
             });
-            return res.redire('sendMessage', { user: req.user })
+            return res.redirect('/', { user: req.user })
         })
         .catch(err => res.status(400).send({ err }))
     // TODO: FIX IT
