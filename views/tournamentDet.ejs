@@ -53,8 +53,7 @@
             <td class="details-key">Reward per kill</td>
             <td>-</td>
             <td class="details-value">₹ <%= room.killReward%>
-              <%if(room.minKills > 0) { %>(minimum <%=room.minKills%> kills<% if(room.typeOfSquad != "Solo") { %>/team
-                <% }%>)
+              <%if(room.minKills > 0) { %>(minimum <%=room.minKills%> kills<% if(room.typeOfSquad != "Solo") { %>/team<%}%>)
               <% } %></td>
           </tr>
           <% } %>
