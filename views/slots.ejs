@@ -3,19 +3,18 @@
 
 
 <div class="container">
-    <table>
+    <table style="table-layout: auto;
+    width: 100%;">
         <tr>
-            <th>Sr. No.</th>
+            <th>Slot</th>
             <th>Name</th>
             <th>PUBG Username</th>
-            <th>Phone</th>
         </tr>
         <% users.forEach((user, i) => { %>
         <tr>
             <td><%=i+1%></td>
             <td><%=user.name%></td>
             <td><%=user.pubgUsername%></td>
-            <td><%=user.phone%></td>
         </tr>
         <% }); %>
     </table>

@@ -116,6 +116,25 @@ router.get('/:id', isUserLoggedIn, isUserVerified, (req, res) => {
     Room.findOne({ _id: id })
         .then(room => res.render('tournamentDet', { room, user: req.user }))
         .catch(err => res.status(400).send({ err }))
+});
+
+router.get('/viewSlots/:id', isUserLoggedIn, (req, res) => {
+    const { id } = req.params;
+    Room.findOne({ _id: id })
+        .then(room => {
+            if (!room) { }
+            else {
+                return User.find({ _id: { $in: room.players } })
+            }
+        })
+        .then(users => {
+            if (users) {
+                return res.render('slots', { users, user: req.user });
+            } else {
+                return res.redirect('/')
+            }
+        })
+        .catch(err => res.status(400).send({ err }))
 })
 
 module.exports = router;
