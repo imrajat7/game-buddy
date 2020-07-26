@@ -115,10 +115,11 @@
           <br>
           <p>Room Details will be sent 15 minutes prior to the match on your registered mobile (If you don't get the
             details, connect with us on instagram)</p>
-            <% if(room.messages) {%>
+            <% if(typeof room.messages !== "undefined") { %>
             <h2>Messages</h2>
-            <%= room.messages %>
-          <% } } else if (room.teamsJoined != room.teams) { %>
+            <% room.messages.forEach((message) => { %>
+              <p><%=message%></p>
+          <%  })} } else if (room.teamsJoined != room.teams) { %>
           <button class="btn btn-dark button" disabled>Room Full!</button>
           <%} %>
         </div>
