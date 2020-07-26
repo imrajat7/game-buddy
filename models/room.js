@@ -38,7 +38,10 @@ const roomSchema = new Schema({
             ref: 'User'
         }
     ],
-    note: {type : String}
+    messages: [
+        { type: String }
+    ],
+    note: { type: String }
 });
 
 module.exports = model('Room', roomSchema);

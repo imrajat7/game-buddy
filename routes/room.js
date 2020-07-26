@@ -68,7 +68,7 @@ router.get('/sendMessage/:id', isAdminLoggedIn, (req, res) => {
 router.post('/sendMessage/:id', isAdminLoggedIn, (req, res) => {
     const { id } = req.params;
     const { message } = req.body;
-    Room.findOne({ _id: id })
+    Room.findOneAndUpdate({ _id: id }, { $push: { messages: message } }, {new: true})
         .then(room => {
             if (!room) { }
             else {

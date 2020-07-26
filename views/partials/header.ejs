@@ -21,11 +21,11 @@
     integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<!-- favicon -->
-<link rel="apple-touch-icon" sizes="180x180" href="/favicon.io/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon.io/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon.io/favicon-16x16.png">
-<link rel="manifest" href="/site.webmanifest">
+  <!-- favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.io/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.io/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.io/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
 </head>
 
 <body>
@@ -50,8 +50,27 @@
           <li>
             <a href="/rules" class="nav-link">Rules</a>
           </li>
-          
+
           <% if(typeof user !== 'undefined') { %>
+          <% if(user.isRegistered) {%>
+          <!-- The text field -->
+          <input type="text" style="position: absolute; margin-top: -100em;" value="<%=user.referralCode%>" id="myInput">
+
+          <!-- The button used to copy the text -->
+          <button class="btn btn-link nav-link" onclick="myFunction()">Send Invite</button>
+          <script>
+            function myFunction() {
+              var copyText = document.getElementById("myInput");
+
+              copyText.select();
+              copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+              document.execCommand("copy");
+
+              alert("Referral code copied to clipboard. Ask your friends to use this when signing up.");
+            }
+          </script>
+          <%}%>
           <% if(user.role === 'admin') {%>
           <li>
             <a href="/room/create" class="nav-link">Create Room</a>
