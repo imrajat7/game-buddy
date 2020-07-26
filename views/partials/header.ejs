@@ -51,7 +51,7 @@
             <a href="/rules" class="nav-link">Rules</a>
           </li>
           
-          <% if(user) { %>
+          <% if(typeof user !== 'undefined') { %>
           <% if(user.role === 'admin') {%>
           <li>
             <a href="/room/create" class="nav-link">Create Room</a>

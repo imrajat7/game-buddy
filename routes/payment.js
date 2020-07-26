@@ -4,16 +4,11 @@ const { isUserLoggedIn } = require('../utils/ensureAuth');
 const Room = require('../models/room');
 
 const shortid = require('shortid');
-const room = require('../models/room');
 
 const instance = new Razorpay({
     key_id: process.env.RAZOR_KEY_ID,
     key_secret: process.env.RAZOR_KEY_SECRET,
 })
-
-router.get('/', (req, res) => {
-    res.render('checkout');
-});
 
 router.post('/join/:id', isUserLoggedIn, (req, res) => {
     Room.findOne({ _id: req.params.id })
@@ -26,7 +21,7 @@ router.post('/join/:id', isUserLoggedIn, (req, res) => {
                 }
 
                 else {
-                    
+
                     instance.orders.create({
                         amount: room.entryFee * 100,
                         currency: "INR",
@@ -44,14 +39,14 @@ router.post('/join/:id', isUserLoggedIn, (req, res) => {
         .catch(err => res.status(400).send({ err }));
 });
 
-// TESTING
-router.post('/order', (req, res) => {
-    console.log(req.body);
-    params = req.body;
-    instance.orders.create(params)
-        .then((data) => { console.log(data); res.json({ "sub": data, "status": "success" }) })
-        .catch((error) => res.send({ "sub": error, "status": "failed" }));
-});
+// // TESTING
+// router.post('/order', (req, res) => {
+//     console.log(req.body);
+//     params = req.body;
+//     instance.orders.create(params)
+//         .then((data) => { console.log(data); res.json({ "sub": data, "status": "success" }) })
+//         .catch((error) => res.send({ "sub": error, "status": "failed" }));
+// });
 
 router.post("/verify", (req, res) => {
     const roomId = req.headers.referer.split('/').pop();

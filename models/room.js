@@ -23,6 +23,7 @@ const roomSchema = new Schema({
     killReward: Number,
     firstReward: String,
     secondReward: String,
+    maxKillReward: String,
     teams: {
         type: Number,
         default: 100,

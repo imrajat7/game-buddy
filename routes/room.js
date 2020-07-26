@@ -16,7 +16,7 @@ router.get('/create', isAdminLoggedIn, (req, res) => {
 })
 
 router.post('/create', isAdminLoggedIn, (req, res) => {
-    const { name, typeOfSquad, map, matchType, minKills, note, datetime, entryFee, killReward, firstReward, secondReward } = req.body;
+    const { name, typeOfSquad, map, matchType, maxKillReward, minKills, note, datetime, entryFee, killReward, firstReward, secondReward } = req.body;
     console.log(req.body);
 
     const teamObj = {
@@ -40,6 +40,7 @@ router.post('/create', isAdminLoggedIn, (req, res) => {
         entryFee,
         firstReward,
         secondReward,
+        maxKillReward,
         killReward,
         minKills,
         note,

@@ -1,7 +1,7 @@
 var AWS = require('aws-sdk');
 
 const sendOTP = (phone, OTP) => {
-    console.log(phone, OTP)
+    console.log(phone, OTP);
     let params = {
         Message: `Your GameBuddy OTP is ${OTP}`,
         PhoneNumber: phone,

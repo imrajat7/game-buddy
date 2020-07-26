@@ -65,7 +65,6 @@ router.post('/verifyOTP', (req, res) => {
             }
 
             USER = user;
-            pattern = "[0-9]{3}-[0-9]{2}-[0-9]{3}"
             const payload = {
                 id: user._id,
                 phone: user.phone,

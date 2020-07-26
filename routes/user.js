@@ -6,7 +6,7 @@ const router = require('express').Router();
 
 router.get('/moreDetails', isUserLoggedIn, (req, res) => {
     if (req.user.isRegistered) {
-        return res.redirect('/dashboard');
+        return res.redirect('/');
     }
     return res.render('getMoreDetails', { user: req.user });
 });
