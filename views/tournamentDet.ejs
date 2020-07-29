@@ -14,6 +14,7 @@
           <% if(room.note) { %>
           <h6 style="color: red;"> <%= room.note %></h6>
           <%}%>
+          <h6> <%= room.datetime %></h6>
           <% if (room.players.includes(user._id)) {%>
             <a href="/room/viewSlots/<%=room._id%>"><button class="btn btn-primary" style="width: 40%;">
               View Slots
