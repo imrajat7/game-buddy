@@ -12,9 +12,9 @@
           <h2><%= room.name %></h2>
           <h4><%= room.matchType %> | <%= room.typeOfSquad %> | <%= room.map %> </h4>
           <% if(room.note) { %>
-          <h6 style="color: red;"> <%= room.note.toString().split(' GMT')[0] %></h6>
+          <h6 style="color: red;"> <%= room.note %></h6>
           <%}%>
-          <h6> <%= room.datetime %></h6>
+          <h6> <%= room.datetime.toString().split(' GMT')[0] %></h6>
           <% if (room.players.includes(user._id)) {%>
             <a href="/room/viewSlots/<%=room._id%>"><button class="btn btn-primary" style="width: 40%;">
               View Slots
