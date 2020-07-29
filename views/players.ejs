@@ -10,9 +10,9 @@
             <th>PUBG Username</th>
             <th>Phone</th>
         </tr>
-        <% users.forEach((user, i) => { %>
+        <% const a = users.length > 50 ? 100 : (users.length > 25 ? 50 : 25) ; let diff = a-users.length; users.forEach((user, i) => { %>
         <tr>
-            <td><%=i+1%></td>
+            <td><%=i+1+diff%></td>
             <td><%=user.name%></td>
             <td><%=user.pubgUsername%></td>
             <td><%=user.phone%></td>
