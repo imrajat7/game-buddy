@@ -3,15 +3,19 @@
 
 
 <div class="container">
+    <table style="table-layout: auto;
+    width: 100%;">
     <table>
         <tr>
             <th>Sr. No.</th>
+            <th>Slot</th>
             <th>Name</th>
             <th>PUBG Username</th>
             <th>Phone</th>
         </tr>
         <% const a = users.length > 50 ? 100 : (users.length > 25 ? 50 : 25) ; let diff = a-users.length; users.forEach((user, i) => { %>
         <tr>
+            <td><%=i+1%></td>
             <td><%=i+1+diff%></td>
             <td><%=user.name%></td>
             <td><%=user.pubgUsername%></td>
