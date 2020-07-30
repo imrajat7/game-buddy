@@ -101,7 +101,7 @@ router.get('/viewPlayers/:id', isAdminLoggedIn, (req, res) => {
         })
         .then(users => {
             if (users) {
-                return res.render('players', { users, user: req.user });
+                return res.render('players', { users, user: req.user, roomId: id });
             } else {
                 return res.redirect('/')
             }
@@ -110,6 +110,21 @@ router.get('/viewPlayers/:id', isAdminLoggedIn, (req, res) => {
     // TODO: FIX IT
 })
 
+
+router.post('/addPlayer/:id', isAdminLoggedIn, (req, res) => {
+    const { phone } = req.body;
+    const { id } = req.params;
+    User.findOne({ phone: `91${phone}` })
+        .then(user => {
+            if (!user) {
+                return res.send('No user');
+            } else {
+                return Room.findByIdAndUpdate(id, { $push: { players: user._id }, $inc: { teamsJoined: 1 } }, { new: true })
+            }
+        })
+        .then(doc => res.redirect(`/room/viewPlayers/${id}`))
+        .catch(err => res.status(400).send({ err }))
+});
 
 router.get('/:id', isUserLoggedIn, isUserVerified, (req, res) => {
     const { id } = req.params;
