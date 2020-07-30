@@ -77,7 +77,7 @@ router.post('/verifyOTP', (req, res) => {
         })
         .then(token => {
             res.cookie('userId', token, {
-                maxAge: 1000 * 60 * 60 * 24
+                maxAge: 1000 * 60 * 60 * 24 * 30
             });
             return USER.isRegistered ? res.redirect('/') : res.redirect('/user/moreDetails');
         })
