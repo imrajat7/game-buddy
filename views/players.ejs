@@ -4,15 +4,17 @@
 
 <div class="container">
 
-    <form method="POST" action="/room/addPlayer/<%=roomId%>">
-        <h2> Add Player</h2>
+    <h2> Add Player</h2>
+    <form method="POST" action="/tournament/addPlayer/<%=tournamentId%>">
         <input type="tel" id="phone" name="phone" class="form-control" placeholder="Mobile Number without 91 (check list before adding)"
             pattern="[1-9][0-9]{9}" oninvalid="this.setCustomValidity('Phone number without country code')"
             oninput="this.setCustomValidity('')" required autofocus> 
+            <br>
             <input type="submit"
-                class="btn btn-primary form-control"
+                class="btn btn-primary"
                 value="Add Player">
-    </form>
+                <a  href="/tournament/phoneCSV/<%=tournamentId%>" class="btn btn-success">Phone CSV</a>
+            </form>
     <br>
 
 

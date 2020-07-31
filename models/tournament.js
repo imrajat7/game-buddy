@@ -1,28 +1,31 @@
 const { Schema, model } = require('mongoose');
 
-const roomSchema = new Schema({
+// squad, no of matches, each match details, dates, entry fee, rewards, 
+
+const tournamentSchema = new Schema({
     name: {
         type: String,
         required: true,
     },
-    matchType: String,
+    numberOfMatches: Number,
     typeOfSquad: {
         type: String,
-        default: "Solo",
+        default: "Squad",
     },
-    map: {
+    matchType: { type: String },
+    map: [{
         type: String,
         default: "Erangel",
-    },
-    datetime: Date,
+    }],
+    datetime: [{ type: Date }],
+    prizePool: Number,
     entryFee: Number,
-    minKills: {
-        type: Number,
-        default: 0,
-    },
-    killReward: Number,
+    killReward: String,
     firstReward: String,
     secondReward: String,
+    thirdReward: String,
+    fourthReward: String,
+    fifthReward: String,
     maxKillReward: String,
     teams: {
         type: Number,
@@ -44,4 +47,4 @@ const roomSchema = new Schema({
     note: { type: String }
 });
 
-module.exports = model('Room', roomSchema);
+module.exports = model('Tournament', tournamentSchema);

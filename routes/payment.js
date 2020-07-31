@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const Razorpay = require('razorpay');
 const { isUserLoggedIn } = require('../utils/ensureAuth');
-const Room = require('../models/room');
+const Tournament = require('../models/tournament');
 
 const shortid = require('shortid');
 
@@ -11,19 +11,19 @@ const instance = new Razorpay({
 })
 
 router.post('/join/:id', isUserLoggedIn, (req, res) => {
-    Room.findOne({ _id: req.params.id })
-        .then(room => {
-            if (!room) {
+    Tournament.findOne({ _id: req.params.id })
+        .then(tournament => {
+            if (!tournament) {
                 res.status(400).send({ err })
             } else {
-                if (room.teamsJoined == room.teams) {
-                    return res.status(400).send('Room Full');
+                if (tournament.teamsJoined == tournament.teams) {
+                    return res.status(400).send('Tournament Full');
                 }
 
                 else {
 
                     instance.orders.create({
-                        amount: room.entryFee * 100,
+                        amount: tournament.entryFee * 100,
                         currency: "INR",
                         receipt: shortid.generate(),
                         payment_capture: '1'
@@ -49,7 +49,7 @@ router.post('/join/:id', isUserLoggedIn, (req, res) => {
 // });
 
 router.post("/verify", (req, res) => {
-    const roomId = req.headers.referer.split('/').pop();
+    const tournamentId = req.headers.referer.split('/').pop();
     body = req.body.razorpay_order_id + "|" + req.body.razorpay_payment_id;
     var crypto = require("crypto");
     var expectedSignature = crypto.createHmac('sha256', process.env.RAZOR_KEY_SECRET)
@@ -57,7 +57,7 @@ router.post("/verify", (req, res) => {
         .digest('hex');
     if (expectedSignature === req.body.razorpay_signature) {
 
-        Room.findByIdAndUpdate(roomId, { $push: { players: req.user._id }, $inc: { teamsJoined: 1 } }, { new: true })
+        Tournament.findByIdAndUpdate(tournamentId, { $push: { players: req.user._id }, $inc: { teamsJoined: 1 } }, { new: true })
             .then(user => res.status(200).send('Payment successful!'))
             .catch(err => res.status(400).send({ err: 'ERR' }));
 

@@ -2,26 +2,70 @@
 
 <div class="tournament-page-container responsive-container">
   <div class="tournament-page-wrapper">
-    <!-- <div class="tournament-name-div">
-        <h1 class="tournament-name-text">T NAME</h1>
-      </div> -->
     <div class="tournament-details-wrapper responsive-container">
       <img src="/images/gb.png" width="100px" height="250px" />
       <div class="details-div">
         <div style="padding: 10% 5%;">
-          <h2><%= room.name %></h2>
-          <h4><%= room.matchType %> | <%= room.typeOfSquad %> | <%= room.map %> </h4>
-          <% if(room.note) { %>
-          <h6 style="color: red;"> <%= room.note %></h6>
+          <h2><%= tournament.name %></h2>
+
+          <% if(tournament.numberOfMatches == 1) { %>
+          <h4><%= tournament.matchType %> | <%= tournament.typeOfSquad %> | <%= tournament.map %> </h4>
+          <% if(tournament.note) { %>
+          <h6 style="color: red;"> <%= tournament.note %></h6>
           <%}%>
-          <h6> <%= room.datetime.toString().split(' GMT')[0] %></h6>
-          <% if (room.players.includes(user._id)) {%>
-            <a href="/room/viewSlots/<%=room._id%>"><button class="btn btn-primary" style="width: 40%;">
+          <h6> <%= tournament.datetime.toString().split(' GMT')[0] %></h6>
+          <% } else {%>
+            <h4><%= tournament.matchType %> | <%= tournament.typeOfSquad %> </h4>
+          <% if(tournament.note) { %>
+          <h6 style="color: red;"> <%= tournament.note %></h6>
+          <%}%>
+          <h6> Starts <%= tournament.datetime.toString().split(' GMT')[0] %></h6>
+          <% } %>
+          <% if (tournament.players.includes(user._id)) {%>
+          <a href="/tournament/viewSlots/<%=tournament._id%>"><button class="btn btn-primary" style="width: 40%;">
               View Slots
-          </button></a>
+            </button></a>
           <%}%>
           
         </div>
+
+        <% if(tournament.numberOfMatches > 1) { %>
+          <div class="accordion" id="accordionExample">
+          <% tournament.map.forEach((map, index) => { %>
+            <div class="card" style="width: 100%; background-color: transparent; box-shadow: none; border: none;">
+              <div class="card-header" id="heading<%=index%>">
+                <h2 class="mb-0">
+                  <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
+                    data-target="#collapse<%=index%>" aria-expanded="true" aria-controls="collapse<%=index%>">
+                    Match <%=index+1%> Details
+                  </button>
+                </h2>
+              </div>
+
+              <div style="background-color: transparent;" id="collapse<%=index%>" class="collapse" aria-labelledby="heading<%=index%>"
+                data-parent="#accordionExample">
+                <div class="card-body">
+                  <table class="table details-table">
+                    <tbody style="text-align: left;">
+                      <tr>
+                        <td class="details-key">Map</td>
+                        <td>-</td>
+                        <td class="details-value"><%= tournament.map[index]%></td>
+                  </tr>
+                  <tr>
+                    <td class="details-key">Date and time</td>
+                    <td>-</td>
+                    <td class="details-value"><%= tournament.datetime[index].toString().split('GMT')[0] %> </td>
+                  </tr>
+                  </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          <%}) %>
+          </div>
+          <br>
+          <%}%>
         <div>
 
           <table class="table details-table">
@@ -29,52 +73,71 @@
               <tr>
                 <td class="details-key">ENTRY FEE</td>
                 <td>-</td>
-                <td class="details-value">₹ <%= room.entryFee%> <% if (room.typeOfSquad != 'Solo') { %> per team
+                <td class="details-value">₹ <%= tournament.entryFee%> <% if (tournament.typeOfSquad != 'Solo') { %> per
+          team
           <% } %></td>
           </tr>
           <tr>
-            <td class="details-key">Winner <% if (room.typeOfSquad != 'Solo') { %> team <% } %> gets</td>
+            <td class="details-key">Winner <% if (tournament.typeOfSquad != 'Solo') { %> team <% } %> gets</td>
             <td>-</td>
-            <td class="details-value">₹ <%= room.firstReward%> </td>
+            <td class="details-value">₹ <%= tournament.firstReward%> </td>
           </tr>
-          <% if(room.secondReward) { %>
+          <% if(tournament.secondReward) { %>
           <tr>
-            <td class="details-key">Runner-Up <% if (room.typeOfSquad != 'Solo') { %> team <% } %> gets</td>
+            <td class="details-key">Runner-Up <% if (tournament.typeOfSquad != 'Solo') { %> team <% } %> gets</td>
             <td>-</td>
-            <td class="details-value">₹ <%= room.secondReward%></td>
+            <td class="details-value">₹ <%= tournament.secondReward%></td>
           </tr>
-          <% } if(room.maxKillReward) { %>
+          <% } if(tournament.thirdReward) { %>
+          <tr>
+            <td class="details-key">3rd Position <% if (tournament.typeOfSquad != 'Solo') { %> team <% } %> gets</td>
+            <td>-</td>
+            <td class="details-value">₹ <%= tournament.thirdReward%></td>
+          </tr>
+          <% } if(tournament.fourthReward) { %>
+          <tr>
+            <td class="details-key">4th Position <% if (tournament.typeOfSquad != 'Solo') { %> team <% } %> gets</td>
+            <td>-</td>
+            <td class="details-value">₹ <%= tournament.fourthReward%></td>
+          </tr>
+          <% } if(tournament.fifthReward) { %>
+          <tr>
+            <td class="details-key">5th Position <% if (tournament.typeOfSquad != 'Solo') { %> team <% } %> gets</td>
+            <td>-</td>
+            <td class="details-value">₹ <%= tournament.fifthReward%></td>
+          </tr>
+          <% } if(tournament.maxKillReward) { %>
           <tr>
             <td class="details-key">Most kills reward</td>
             <td>-</td>
-            <td class="details-value">₹ <%= room.maxKillReward%>
+            <td class="details-value">₹ <%= tournament.maxKillReward%>
           </tr>
-          <% } if(room.killReward) { %>
+          <% } if(tournament.killReward) { %>
           <tr>
             <td class="details-key">Reward per kill</td>
             <td>-</td>
-            <td class="details-value">₹ <%= room.killReward%>
-              <%if(room.minKills > 0) { %>(minimum <%=room.minKills%> kills<% if(room.typeOfSquad != "Solo") { %>/team<%}%>)
+            <td class="details-value">₹ <%= tournament.killReward%>
+              <%if(tournament.minKills > 0) { %>(minimum <%=tournament.minKills%> kills<% if(tournament.typeOfSquad != "Solo") { %>/team<%}%>)
               <% } %></td>
           </tr>
           <% } %>
           <tr>
             <td class="details-key">NO. OF TEAMS JOINED</td>
             <td>-</td>
-            <td class="details-value"><%=room.teamsJoined%> / <%=room.teams%></td>
+            <td class="details-value"><%=tournament.teamsJoined%> / <%=tournament.teams%></td>
           </tr>
           </tbody>
           </table>
         </div>
         <div>
-          <% if(!room.players.includes(user._id) && room.teamsJoined < room.teams) { %>
+          <% if(!tournament.players.includes(user._id) && tournament.teamsJoined < tournament.teams) { %>
           <input type="hidden" id="order-id">
           <button class="btn btn-dark button" id="joinTourn">Join Match</button>
 
           <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
           <script>
             document.getElementById('joinTourn').onclick = function (e) {
-              var url = '/payment/join/<%=room._id%>';
+              var url = '/payment/join/<%=tournament._id%>';
 
               var xmlHttp = new XMLHttpRequest();
               xmlHttp.onreadystatechange = function (res) {
@@ -86,7 +149,7 @@
                     "key": "rzp_live_mWmd2F9LTG9gMA",  //Enter your razorpay key
                     "currency": "INR",
                     "name": "My Game Buddy",
-                    "description": "<%=room.name%>",
+                    "description": "<%=tournament.name%>",
                     "order_id": document.getElementById('order-id').value,
                     "handler": function (response) {
                       var url = '/payment/verify';
@@ -116,17 +179,17 @@
               xmlHttp.send();
             }
           </script>
-          <% } else if (room.players.includes(user._id)) {%>
+          <% } else if (tournament.players.includes(user._id)) {%>
           <button class="btn btn-dark button" disabled>Already Joined!</button>
           <br>
           <br>
           <p>Room Details will be sent 15 minutes prior to the match on your registered mobile (If you don't get the
-            details, connect with us on instagram)</p>
-          <% if(typeof room.messages !== "undefined") { %>
+            details, check it here before the match)</p>
+          <% if(typeof tournament.messages !== "undefined") { %>
           <h2>Messages</h2>
-          <% room.messages.forEach((message) => { %>
+          <% tournament.messages.forEach((message) => { %>
           <p><%=message%></p>
-          <%  })} } else if (room.teamsJoined != room.teams) { %>
+          <%  })} } else if (tournament.teamsJoined != tournament.teams) { %>
           <button class="btn btn-dark button" disabled>Room Full!</button>
           <%} %>
         </div>

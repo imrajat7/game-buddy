@@ -1,22 +1,16 @@
 const router = require('express').Router();
 
-const Room = require('../models/room');
+const Tournament = require('../models/tournament');
 const User = require('../models/user');
 const { isAdminLoggedIn, isUserLoggedIn } = require('../utils/ensureAuth');
 const { sendText } = require('../config/otpService');
 
-router.get('/', (req, res) => {
-    Room.find()
-        .then(rooms => res.send(rooms, { user: req.user }))
-        .catch(err => res.status(400).send({ err }))
-});
-
 router.get('/create', isAdminLoggedIn, (req, res) => {
-    res.render('createRoom', { user: req.user });
+    res.render('createTournament', { user: req.user });
 })
 
 router.post('/create', isAdminLoggedIn, (req, res) => {
-    const { name, typeOfSquad, map, matchType, maxKillReward, minKills, note, datetime, entryFee, killReward, firstReward, secondReward } = req.body;
+    const { name, typeOfSquad, map, numberOfMatches, prizePool, matchType, maxKillReward, note, datetime, entryFee, killReward, firstReward, secondReward, thirdReward, fourthReward, fifthReward } = req.body;
     console.log(req.body);
 
     const teamObj = {
@@ -31,34 +25,38 @@ router.post('/create', isAdminLoggedIn, (req, res) => {
         teams = 2;
     }
 
-    const newRoom = new Room({
+    const newTournament = new Tournament({
         name,
         typeOfSquad,
+        numberOfMatches,
         map,
         matchType,
         datetime,
+        prizePool,
         entryFee,
         firstReward,
         secondReward,
+        thirdReward,
+        fourthReward,
+        fifthReward,
         maxKillReward,
         killReward,
-        minKills,
         note,
         teams,
     })
 
-    newRoom.save()
-        .then(room => res.redirect('/'))
+    newTournament.save()
+        .then(tournament => res.redirect('/'))
         .catch(err => res.status(400).send({ err }))
 })
 
 router.get('/sendMessage/:id', isAdminLoggedIn, (req, res) => {
     const { id } = req.params;
-    Room.findOne({ _id: id })
-        .then(room => {
-            if (!room) { }
+    Tournament.findOne({ _id: id })
+        .then(tournament => {
+            if (!tournament) { }
             else {
-                return res.render('sendMessage', { user: req.user, room })
+                return res.render('sendMessage', { user: req.user, tournament })
             }
         })
         .catch(err => res.status(400).send({ err }))
@@ -68,11 +66,11 @@ router.get('/sendMessage/:id', isAdminLoggedIn, (req, res) => {
 router.post('/sendMessage/:id', isAdminLoggedIn, (req, res) => {
     const { id } = req.params;
     const { message } = req.body;
-    Room.findOneAndUpdate({ _id: id }, { $push: { messages: message } }, { new: true })
-        .then(room => {
-            if (!room) { }
+    Tournament.findOneAndUpdate({ _id: id }, { $push: { messages: message } }, { new: true })
+        .then(tournament => {
+            if (!tournament) { }
             else {
-                return User.find({ _id: { $in: room.players } })
+                return User.find({ _id: { $in: tournament.players } })
             }
         })
         .then(users => {
@@ -92,24 +90,43 @@ router.post('/sendMessage/:id', isAdminLoggedIn, (req, res) => {
 
 router.get('/viewPlayers/:id', isAdminLoggedIn, (req, res) => {
     const { id } = req.params;
-    Room.findOne({ _id: id })
-        .then(room => {
-            if (!room) { }
+    Tournament.findOne({ _id: id })
+        .then(tournament => {
+            if (!tournament) { }
             else {
-                return User.find({ _id: { $in: room.players } })
+                return User.find({ _id: { $in: tournament.players } })
             }
         })
         .then(users => {
             if (users) {
-                return res.render('players', { users, user: req.user, roomId: id });
+                return res.render('players', { users, user: req.user, tournamentId: id });
             } else {
                 return res.redirect('/')
             }
         })
         .catch(err => res.status(400).send({ err }))
     // TODO: FIX IT
-})
+});
 
+router.get('/phoneCSV/:id', isAdminLoggedIn, (req, res) => {
+    const { id } = req.params;
+    Tournament.findOne({ _id: id })
+        .then(tournament => {
+            if (!tournament) { }
+            else {
+                return User.find({ _id: { $in: tournament.players } }, 'phone -_id')
+            }
+        })
+        .then(users => {
+            if (users) {
+                return res.send({ users });
+            } else {
+                return res.redirect('/')
+            }
+        })
+        .catch(err => res.status(400).send({ err }))
+    // TODO: FIX IT
+});
 
 router.post('/addPlayer/:id', isAdminLoggedIn, (req, res) => {
     const { phone } = req.body;
@@ -119,27 +136,27 @@ router.post('/addPlayer/:id', isAdminLoggedIn, (req, res) => {
             if (!user) {
                 return res.send('No user');
             } else {
-                return Room.findByIdAndUpdate(id, { $push: { players: user._id }, $inc: { teamsJoined: 1 } }, { new: true })
+                return Tournament.findByIdAndUpdate(id, { $push: { players: user._id }, $inc: { teamsJoined: 1 } }, { new: true })
             }
         })
-        .then(doc => res.redirect(`/room/viewPlayers/${id}`))
+        .then(doc => res.redirect(`/tournament/viewPlayers/${id}`))
         .catch(err => res.status(400).send({ err }))
 });
 
 router.get('/:id', isUserLoggedIn, isUserVerified, (req, res) => {
     const { id } = req.params;
-    Room.findOne({ _id: id })
-        .then(room => res.render('tournamentDet', { room, user: req.user }))
+    Tournament.findOne({ _id: id })
+        .then(tournament => res.render('tournamentDet', { tournament, user: req.user }))
         .catch(err => res.status(400).send({ err }))
 });
 
 router.get('/viewSlots/:id', isUserLoggedIn, (req, res) => {
     const { id } = req.params;
-    Room.findOne({ _id: id })
-        .then(room => {
-            if (!room) { }
+    Tournament.findOne({ _id: id })
+        .then(tournament => {
+            if (!tournament) { }
             else {
-                return User.find({ _id: { $in: room.players } })
+                return User.find({ _id: { $in: tournament.players } })
             }
         })
         .then(users => {

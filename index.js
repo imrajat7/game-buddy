@@ -4,7 +4,6 @@ const bodyParser = require('body-parser');
 const cookieParser = require("cookie-parser");
 const ejs = require('ejs');
 const helmet = require('helmet');
-const room = require('./models/room');
 const { authMiddleware } = require('./utils/ensureAuth');
 // const csurf = require('csurf');
 
@@ -41,7 +40,7 @@ mongoose
 app.use(authMiddleware);
 
 app.use('/auth', require('./routes/auth'));
-app.use('/room', require('./routes/room'));
+app.use('/tournament', require('./routes/tournament'));
 app.use('/payment', require('./routes/payment'));
 app.use('/user', require('./routes/user'));
 app.use('/', require('./routes/index'));

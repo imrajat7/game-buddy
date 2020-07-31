@@ -1,11 +1,11 @@
-const Room = require('../models/room');
+const Tournament = require('../models/tournament');
 
 const router = require('express').Router();
 
 router.get('/', (req, res) => {
     console.log(req.user);
-    Room.find({ datetime: { $gte: Date.now() } })
-        .then(rooms => res.render('matchSchedule', { rooms, user: req.user }))
+    Tournament.find({ datetime: { $gte: Date.now() } })
+        .then(tournaments => res.render('matchSchedule', { tournaments, user: req.user }))
         .catch(err => res.status(400).send({ err }))
 });
 
