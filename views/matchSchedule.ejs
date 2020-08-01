@@ -8,7 +8,8 @@
     <div class="container cards-container">
         <% if(tournaments.length == 0){%>
         No matches scheduled for now. Stay tuned and follow us on Instagram at @my_game_buddy for instant updates.
-        <% } tournaments.forEach((tournament, index) => { %>
+        <% } tournaments.forEach((tournament, index) => { 
+            let unique = tournament.map.filter((item, i, ar) => ar.indexOf(item) === i); %>
         <% if(index % 3 === 0) { %>
         <div class="card-deck">
             <%} %>
@@ -31,7 +32,7 @@
                     <tr>
                         <td class="details-key">Map</td>
                         <td>-</td>
-                        <td class="details-value"><%= tournament.map%></td>
+                        <td class="details-value"><%= unique%></td>
                     </tr>
                     <tr>
                         <td class="details-key">Entry fee</td>
