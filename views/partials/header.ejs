@@ -28,14 +28,17 @@
   <link rel="manifest" href="/site.webmanifest">
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-173908036-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-173908036-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
-  gtag('config', 'UA-173908036-1');
-</script>
+    gtag('config', 'UA-173908036-1');
+
+  </script>
+  <script data-ad-client="ca-pub-2435786703808826" async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
 
 <body>
@@ -64,7 +67,8 @@
           <% if(typeof user !== 'undefined') { %>
           <% if(user.isRegistered) {%>
           <!-- The text field -->
-          <input type="text" style="position: absolute; margin-top: -100em;" value="<%=user.referralCode%>" id="myInput">
+          <input type="text" style="position: absolute; margin-top: -100em;" value="<%=user.referralCode%>"
+            id="myInput">
 
           <!-- The button used to copy the text -->
           <button class="btn btn-link nav-link" onclick="myFunction()">Send Invite</button>
