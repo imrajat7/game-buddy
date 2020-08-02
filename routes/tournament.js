@@ -119,7 +119,7 @@ router.get('/phoneCSV/:id', isAdminLoggedIn, (req, res) => {
         })
         .then(users => {
             if (users) {
-                return res.send({ users });
+                return res.render( 'phoneCSV' ,{ users });
             } else {
                 return res.redirect('/')
             }
