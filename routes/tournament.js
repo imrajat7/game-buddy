@@ -119,7 +119,7 @@ router.get('/phoneCSV/:id', isAdminLoggedIn, (req, res) => {
         })
         .then(users => {
             if (users) {
-                return res.render( 'phoneCSV' ,{ users });
+                return res.render('phoneCSV', { users });
             } else {
                 return res.redirect('/')
             }
@@ -131,16 +131,25 @@ router.get('/phoneCSV/:id', isAdminLoggedIn, (req, res) => {
 router.post('/addPlayer/:id', isAdminLoggedIn, (req, res) => {
     const { phone } = req.body;
     const { id } = req.params;
-    User.findOne({ phone: `91${phone}` })
-        .then(user => {
-            if (!user) {
-                return res.send('No user');
-            } else {
-                return Tournament.findByIdAndUpdate(id, { $push: { players: user._id }, $inc: { teamsJoined: 1 } }, { new: true })
-            }
-        })
-        .then(doc => res.redirect(`/tournament/viewPlayers/${id}`))
-        .catch(err => res.status(400).send({ err }))
+
+    if (req.user.phone == `91${phone}`) {
+        User.findByIdAndUpdate(req.user._id, { $inc: { strike: 1 } }, { new: true })
+            .then(user => res.send(`Looks like you didn't read the note. You have ${user.strike} strikes.`))
+            .catch(err => res.status(400).send({ err }))
+    }
+
+    else {
+        User.findOne({ phone: `91${phone}` })
+            .then(user => {
+                if (!user) {
+                    return res.send('No user');
+                } else {
+                    return Tournament.findByIdAndUpdate(id, { $push: { players: user._id }, $inc: { teamsJoined: 1 } }, { new: true })
+                }
+            })
+            .then(doc => res.redirect(`/tournament/viewPlayers/${id}`))
+            .catch(err => res.status(400).send({ err }))
+    }
 });
 
 router.get('/:id', isUserLoggedIn, isUserVerified, (req, res) => {

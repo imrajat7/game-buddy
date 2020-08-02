@@ -27,6 +27,10 @@ const userSchema = new Schema({
         type: Boolean,
         default: false,
     },
+    strike: {
+        type: Number,
+        default: 0,
+    },
     role: {
         type: String,
         default: 'user',
