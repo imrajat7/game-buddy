@@ -9,7 +9,7 @@
           <h2><%= tournament.name %></h2>
 
           <% if(tournament.numberOfMatches == 1) { %>
-          if(tournament.matchType === "TDM") {%> 
+          <% if(tournament.matchType === "TDM") {%> 
               <h4><%= tournament.matchType %> </h4>
               <%} else {%>
               <h4><%= tournament.matchType %> | <%= tournament.typeOfSquad %> | <%= tournament.map %> </h4>
