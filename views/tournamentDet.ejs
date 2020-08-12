@@ -9,13 +9,21 @@
           <h2><%= tournament.name %></h2>
 
           <% if(tournament.numberOfMatches == 1) { %>
-          <h4><%= tournament.matchType %> | <%= tournament.typeOfSquad %> | <%= tournament.map %> </h4>
+          if(tournament.matchType === "TDM") {%> 
+              <h4><%= tournament.matchType %> </h4>
+              <%} else {%>
+              <h4><%= tournament.matchType %> | <%= tournament.typeOfSquad %> | <%= tournament.map %> </h4>
+              <%}%>
           <% if(tournament.note) { %>
           <h6 style="color: red;"> <%= tournament.note %></h6>
           <%}%>
-          <h6> <%= tournament.datetime.toString().split(' GMT')[0] %></h6>
+          if(tournament.matchType === "TDM") {%> 
+            <h6> Starts <%= tournament.datetime.toString().split(' GMT')[0] %>. May last for 3 to 4 days.</h6>
+            <%} else {%>
+            <h6> <%= tournament.datetime.toString().split(' GMT')[0] %></h6>
+            <%}%>
           <% } else {%>
-            <h4><%= tournament.matchType %> | <%= tournament.typeOfSquad %> </h4>
+          <h4><%= tournament.matchType %> | <%= tournament.typeOfSquad %> </h4>
           <% if(tournament.note) { %>
           <h6 style="color: red;"> <%= tournament.note %></h6>
           <%}%>
@@ -31,7 +39,7 @@
 
         <% if(tournament.numberOfMatches > 1) { %>
           <div class="accordion" id="accordionExample">
-          <% tournament.map.forEach((map, index) => { %>
+            <% tournament.map.forEach((map, index) => { %>
             <div class="card" style="width: 100%; background-color: transparent; box-shadow: none; border: none;">
               <div class="card-header" id="heading<%=index%>">
                 <h2 class="mb-0">
@@ -42,8 +50,8 @@
                 </h2>
               </div>
 
-              <div style="background-color: transparent;" id="collapse<%=index%>" class="collapse" aria-labelledby="heading<%=index%>"
-                data-parent="#accordionExample">
+              <div style="background-color: transparent;" id="collapse<%=index%>" class="collapse"
+                aria-labelledby="heading<%=index%>" data-parent="#accordionExample">
                 <div class="card-body">
                   <table class="table details-table">
                     <tbody style="text-align: left;">
@@ -51,18 +59,18 @@
                         <td class="details-key">Map</td>
                         <td>-</td>
                         <td class="details-value"><%= tournament.map[index]%></td>
-                  </tr>
-                  <tr>
-                    <td class="details-key">Date and time</td>
-                    <td>-</td>
-                    <td class="details-value"><%= tournament.datetime[index].toString().split('GMT')[0] %> </td>
-                  </tr>
-                  </tbody>
+                      </tr>
+                      <tr>
+                        <td class="details-key">Date and time</td>
+                        <td>-</td>
+                        <td class="details-value"><%= tournament.datetime[index].toString().split('GMT')[0] %> </td>
+                      </tr>
+                    </tbody>
                   </table>
                 </div>
               </div>
             </div>
-          <%}) %>
+            <%}) %>
           </div>
           <br>
           <%}%>
