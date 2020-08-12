@@ -27,17 +27,27 @@
                             <tr>
                                 <td class="details-key">Type</td>
                                 <td>-</td>
-                                <td class="details-value"><%= tournament.typeOfSquad%> | <%= tournament.matchType%></td>
+                                <% if(tournament.matchType === "TDM") {%>
+                    <td class="details-value"><%= tournament.matchType%></td>
+
+                    <%} else { %>
+                    <td class="details-value"><%= tournament.typeOfSquad%> | <%= tournament.matchType%></td>
+                    <% } %>
                     </tr>
+                    <% if(tournament.matchType !== "TDM") {%>
                     <tr>
                         <td class="details-key">Map</td>
                         <td>-</td>
+
                         <td class="details-value"><%= unique%></td>
                     </tr>
+                    <% } %>
+
                     <tr>
                         <td class="details-key">Entry fee</td>
                         <td>-</td>
-                        <td class="details-value">₹ <%= tournament.entryFee%> <% if (tournament.typeOfSquad != 'Solo') { %> per team
+                        <td class="details-value">₹ <%= tournament.entryFee%>
+                            <% if (tournament.typeOfSquad != 'Solo') { %> per team
                             <% } %></td>
                     </tr>
                     <% if(tournament.killReward) { %>
@@ -59,10 +69,12 @@
                         </button></a>
 
                     <% if(typeof user !== 'undefined' && user.role === 'admin') { %>
-                    <a href="/tournament/sendMessage/<%=tournament._id%>"><button class="btn btn-danger" style="width: 40%;">
+                    <a href="/tournament/sendMessage/<%=tournament._id%>"><button class="btn btn-danger"
+                            style="width: 40%;">
                             Send Message
                         </button></a>
-                    <a href="/tournament/viewPlayers/<%=tournament._id%>"><button class="btn btn-success" style="width: 40%;">
+                    <a href="/tournament/viewPlayers/<%=tournament._id%>"><button class="btn btn-success"
+                            style="width: 40%;">
                             View Players
                         </button></a>
                     <%}%>
