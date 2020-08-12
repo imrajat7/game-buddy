@@ -17,7 +17,7 @@
           <% if(tournament.note) { %>
           <h6 style="color: red;"> <%= tournament.note %></h6>
           <%}%>
-          if(tournament.matchType === "TDM") {%> 
+          <% if(tournament.matchType === "TDM") {%> 
             <h6> Starts <%= tournament.datetime.toString().split(' GMT')[0] %>. May last for 3 to 4 days.</h6>
             <%} else {%>
             <h6> <%= tournament.datetime.toString().split(' GMT')[0] %></h6>
