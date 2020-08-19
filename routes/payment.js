@@ -39,15 +39,6 @@ router.post('/join/:id', isUserLoggedIn, (req, res) => {
         .catch(err => res.status(400).send({ err }));
 });
 
-// // TESTING
-// router.post('/order', (req, res) => {
-//     console.log(req.body);
-//     params = req.body;
-//     instance.orders.create(params)
-//         .then((data) => { console.log(data); res.json({ "sub": data, "status": "success" }) })
-//         .catch((error) => res.send({ "sub": error, "status": "failed" }));
-// });
-
 router.post("/verify", (req, res) => {
     const tournamentId = req.headers.referer.split('/').pop();
     body = req.body.razorpay_order_id + "|" + req.body.razorpay_payment_id;
@@ -56,14 +47,19 @@ router.post("/verify", (req, res) => {
         .update(body.toString())
         .digest('hex');
     if (expectedSignature === req.body.razorpay_signature) {
-
         Tournament.findByIdAndUpdate(tournamentId, { $push: { players: req.user._id }, $inc: { teamsJoined: 1 } }, { new: true })
-            .then(user => res.status(200).send('Payment successful!'))
+            .then(tournament => res.status(200).send('Payment successful!'))
             .catch(err => res.status(400).send({ err: 'ERR' }));
 
     } else {
         res.status(400).send({ err: 'ERR' })
     }
+});
+
+router.post("/freeJoin/:id", (req, res) => {
+    Tournament.findByIdAndUpdate(req.params.id, { $push: { players: req.user._id }, $inc: { teamsJoined: 1 } }, { new: true })
+        .then(tournament => res.status(200).send('Registration Successful!'))
+        .catch(err => res.status(400).send({ err: 'ERR' }));
 });
 
 module.exports = router;

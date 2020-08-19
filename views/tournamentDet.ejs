@@ -9,19 +9,19 @@
           <h2><%= tournament.name %></h2>
 
           <% if(tournament.numberOfMatches == 1) { %>
-          <% if(tournament.matchType === "TDM") {%> 
-              <h4><%= tournament.matchType %> </h4>
-              <%} else {%>
-              <h4><%= tournament.matchType %> | <%= tournament.typeOfSquad %> | <%= tournament.map %> </h4>
-              <%}%>
+          <% if(tournament.matchType === "TDM") {%>
+          <h4><%= tournament.matchType %> </h4>
+          <%} else {%>
+          <h4><%= tournament.matchType %> | <%= tournament.typeOfSquad %> | <%= tournament.map %> </h4>
+          <%}%>
           <% if(tournament.note) { %>
           <h6 style="color: red;"> <%= tournament.note %></h6>
           <%}%>
-          <% if(tournament.matchType === "TDM") {%> 
-            <h6> Starts <%= tournament.datetime.toString().split(' GMT')[0] %>. May last for 3 to 4 days.</h6>
-            <%} else {%>
-            <h6> <%= tournament.datetime.toString().split(' GMT')[0] %></h6>
-            <%}%>
+          <% if(tournament.matchType === "TDM") {%>
+          <h6> Starts <%= tournament.datetime.toString().split(' GMT')[0] %>. May last for 3 to 4 days.</h6>
+          <%} else {%>
+          <h6> <%= tournament.datetime.toString().split(' GMT')[0] %></h6>
+          <%}%>
           <% } else {%>
           <h4><%= tournament.matchType %> | <%= tournament.typeOfSquad %> </h4>
           <% if(tournament.note) { %>
@@ -137,6 +137,7 @@
           <input type="hidden" id="order-id">
           <button class="btn btn-dark button" id="joinTourn">Join Match</button>
 
+          <% if(tournament.entryFee > 0) { %>
           <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
           <script>
             document.getElementById('joinTourn').onclick = function (e) {
@@ -182,6 +183,26 @@
               xmlHttp.send();
             }
           </script>
+          <% } else {%>
+          <script>
+            document.getElementById('joinTourn').onclick = function (e) {
+              var url = '/payment/freeJoin/<%=tournament._id%>';
+
+              var xmlHttp = new XMLHttpRequest();
+              xmlHttp.onreadystatechange = function (res) {
+                console.log(res);
+                if (xmlHttp.readyState === 4) {
+                  alert(xmlHttp.responseText);
+                  window.location.href = "/";
+                }
+              }
+              xmlHttp.open("POST", url, true); // false for synchronous request
+              xmlHttp.setRequestHeader("Content-type", "application/json");
+              xmlHttp.send();
+            }
+          </script>
+          <% } %>
+
           <% } else if (tournament.players.includes(user._id)) {%>
           <button class="btn btn-dark button" disabled>Already Joined!</button>
           <br>
