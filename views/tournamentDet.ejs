@@ -81,16 +81,21 @@
               <tr>
                 <td class="details-key">ENTRY FEE</td>
                 <td>-</td>
+                <% if(tournament.entryFee > 0) {%>
                 <td class="details-value">₹ <%= tournament.entryFee%> <% if (tournament.typeOfSquad != 'Solo') { %> per
           team
           <% } %></td>
+          <% } else { %>
+            <td class="details-value">None</td>
+          <% } %>
           </tr>
+          <% if(tournament.firstReward) { %>
           <tr>
             <td class="details-key">Winner <% if (tournament.typeOfSquad != 'Solo') { %> team <% } %> gets</td>
             <td>-</td>
             <td class="details-value">₹ <%= tournament.firstReward%> </td>
           </tr>
-          <% if(tournament.secondReward) { %>
+          <% } if(tournament.secondReward) { %>
           <tr>
             <td class="details-key">Runner-Up <% if (tournament.typeOfSquad != 'Solo') { %> team <% } %> gets</td>
             <td>-</td>
