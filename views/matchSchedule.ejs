@@ -46,9 +46,13 @@
                     <tr>
                         <td class="details-key">Entry fee</td>
                         <td>-</td>
+                        <% if(tournament.entryFee > 0) {%>
                         <td class="details-value">₹ <%= tournament.entryFee%>
                             <% if (tournament.typeOfSquad != 'Solo') { %> per team
                             <% } %></td>
+                        <%} else {%>
+                        <td class="details-value">None</td>
+                        <%} %>
                     </tr>
                     <% if(tournament.killReward) { %>
                     <tr>
@@ -57,11 +61,13 @@
                         <td class="details-value">₹ <%= tournament.killReward%></td>
                     </tr>
                     <% } %>
+                    <% if(tournament.prizePool > 0) {%>
                     <tr>
                         <td class="details-key">Prize pool</td>
                         <td>-</td>
                         <td class="details-value">₹ <%= tournament.prizePool%></td>
                     </tr>
+                    <% } %>
                     </tbody>
                     </table>
                     <a href="/tournament/<%=tournament._id%>"><button class="btn btn-primary" style="width: 40%;">
