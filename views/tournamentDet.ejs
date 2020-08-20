@@ -218,7 +218,7 @@
           <h2>Messages</h2>
           <% tournament.messages.forEach((message) => { %>
           <p><%=message%></p>
-          <%  })} } else if (tournament.teamsJoined != tournament.teams) { %>
+          <%  })} } else if (tournament.teamsJoined == tournament.teams) { %>
           <button class="btn btn-dark button" disabled>Room Full!</button>
           <%} %>
         </div>
