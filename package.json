@@ -1,7 +1,7 @@
 {
   "name": "game-buddy",
   "version": "1.0.0",
-  "description": "",
+  "description": "> Change the file `.env.example` to `.env` and then run the code.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
