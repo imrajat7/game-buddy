@@ -1,0 +1,138 @@
+<%- include("partials/header") -%>
+
+<div class="tournament-page-container responsive-container">
+  <div class="tournament-page-wrapper">
+    <!-- <div class="tournament-name-div">
+        <h1 class="tournament-name-text">T NAME</h1>
+      </div> -->
+    <div class="tournament-details-wrapper responsive-container">
+      <img src="/images/gb.png" width="100px" height="250px" />
+      <div class="details-div">
+        <div style="padding: 10% 5%;">
+          <h2><%= room.name %></h2>
+          <h4><%= room.matchType %> | <%= room.typeOfSquad %> | <%= room.map %> </h4>
+          <% if(room.note) { %>
+          <h6 style="color: red;"> <%= room.datetime.toString().split(' GMT')[0] %></h6>
+          <%}%>
+          <h6> <%= room.datetime %></h6>
+          <% if (room.players.includes(user._id)) {%>
+            <a href="/room/viewSlots/<%=room._id%>"><button class="btn btn-primary" style="width: 40%;">
+              View Slots
+          </button></a>
+          <%}%>
+          
+        </div>
+        <div>
+
+          <table class="table details-table">
+            <tbody style="text-align: left;">
+              <tr>
+                <td class="details-key">ENTRY FEE</td>
+                <td>-</td>
+                <td class="details-value">₹ <%= room.entryFee%> <% if (room.typeOfSquad != 'Solo') { %> per team
+          <% } %></td>
+          </tr>
+          <tr>
+            <td class="details-key">Winner <% if (room.typeOfSquad != 'Solo') { %> team <% } %> gets</td>
+            <td>-</td>
+            <td class="details-value">₹ <%= room.firstReward%> </td>
+          </tr>
+          <% if(room.secondReward) { %>
+          <tr>
+            <td class="details-key">Runner-Up <% if (room.typeOfSquad != 'Solo') { %> team <% } %> gets</td>
+            <td>-</td>
+            <td class="details-value">₹ <%= room.secondReward%></td>
+          </tr>
+          <% } if(room.maxKillReward) { %>
+          <tr>
+            <td class="details-key">Most kills reward</td>
+            <td>-</td>
+            <td class="details-value">₹ <%= room.maxKillReward%>
+          </tr>
+          <% } if(room.killReward) { %>
+          <tr>
+            <td class="details-key">Reward per kill</td>
+            <td>-</td>
+            <td class="details-value">₹ <%= room.killReward%>
+              <%if(room.minKills > 0) { %>(minimum <%=room.minKills%> kills<% if(room.typeOfSquad != "Solo") { %>/team<%}%>)
+              <% } %></td>
+          </tr>
+          <% } %>
+          <tr>
+            <td class="details-key">NO. OF TEAMS JOINED</td>
+            <td>-</td>
+            <td class="details-value"><%=room.teamsJoined%> / <%=room.teams%></td>
+          </tr>
+          </tbody>
+          </table>
+        </div>
+        <div>
+          <% if(!room.players.includes(user._id) && room.teamsJoined < room.teams) { %>
+          <input type="hidden" id="order-id">
+          <button class="btn btn-dark button" id="joinTourn">Join Match</button>
+
+          <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+          <script>
+            document.getElementById('joinTourn').onclick = function (e) {
+              var url = '/payment/join/<%=room._id%>';
+
+              var xmlHttp = new XMLHttpRequest();
+              xmlHttp.onreadystatechange = function (res) {
+                console.log(res);
+                if (xmlHttp.readyState === 4) {
+                  res = JSON.parse(xmlHttp.responseText);
+                  document.getElementById('order-id').value = res.data.id;
+                  var options = {
+                    "key": "rzp_live_mWmd2F9LTG9gMA",  //Enter your razorpay key
+                    "currency": "INR",
+                    "name": "My Game Buddy",
+                    "description": "<%=room.name%>",
+                    "order_id": document.getElementById('order-id').value,
+                    "handler": function (response) {
+                      var url = '/payment/verify';
+                      var params = {
+                        razorpay_order_id: response.razorpay_order_id,
+                        razorpay_payment_id: response.razorpay_payment_id,
+                        razorpay_signature: response.razorpay_signature,
+                      };
+                      var xmlHttp = new XMLHttpRequest();
+                      xmlHttp.onreadystatechange = function (res) {
+                        if (xmlHttp.readyState === 4) {
+                          alert(xmlHttp.responseText);
+                          window.location.href = "/";
+                        }
+                      }
+                      xmlHttp.open("POST", url, true); // false for synchronous request
+                      xmlHttp.setRequestHeader("Content-type", "application/json");
+                      xmlHttp.send(JSON.stringify(params));
+                    }
+                  };
+                  var rzp1 = new Razorpay(options);
+                  rzp1.open();
+                }
+              }
+              xmlHttp.open("POST", url, true); // false for synchronous request
+              xmlHttp.setRequestHeader("Content-type", "application/json");
+              xmlHttp.send();
+            }
+          </script>
+          <% } else if (room.players.includes(user._id)) {%>
+          <button class="btn btn-dark button" disabled>Already Joined!</button>
+          <br>
+          <br>
+          <p>Room Details will be sent 15 minutes prior to the match on your registered mobile (If you don't get the
+            details, connect with us on instagram)</p>
+          <% if(typeof room.messages !== "undefined") { %>
+          <h2>Messages</h2>
+          <% room.messages.forEach((message) => { %>
+          <p><%=message%></p>
+          <%  })} } else if (room.teamsJoined != room.teams) { %>
+          <button class="btn btn-dark button" disabled>Room Full!</button>
+          <%} %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include("partials/footer") -%>
